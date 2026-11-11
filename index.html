@@ -143,10 +143,10 @@ g_reiz:{f:[{n:'Reiz',c:['Licht','Wärme','Schwerkraft','Berührung','chemischer 
  {t:'Der Sauerklee klappt bei Wassertropfen seine Blätter zusammen.',a:['Berührung','Schutz'],tip:'Die Tropfen berühren das Blatt. Zusammengeklappt ist es vor Schäden geschützt.'},
  {t:'Die Mimose klappt bei Berührung ihre Blätter zusammen.',a:['Berührung','Schutz'],tip:'Fressfeinde werden abgeschreckt, weil das Blatt plötzlich welk aussieht.'},
  {t:'Die Maispflanze bildet ein Abwehrgift, wenn Käfer an ihr fressen.',a:['chemischer Stoff','Schutz'],tip:'Die Pflanze erkennt Stoffe aus dem Speichel der Käfer, das ist ein chemischer Reiz.'}]},
-g_tab:{fixed:true,f:[{n:'A: Licht von oben',c:['gleichmäßig','ungleichmäßig','gleich lang','länger','kürzer']},{n:'B: Licht von rechts',c:['gleichmäßig','ungleichmäßig','gleich lang','länger','kürzer']}],rows:[
- {t:'Lichteinfall auf den Spross',a:['gleichmäßig','ungleichmäßig'],tip:'Kommt das Licht von oben, bekommen beide Seiten gleich viel ab. Von rechts bekommt die rechte Seite mehr.'},
- {t:'linke Sprossseite <span style="color:#1f5fbf">(blau)</span>',a:['gleich lang','länger'],tip:'Vergleiche die Länge der blauen und der orangen Linie unter dem Spross.'},
- {t:'rechte Sprossseite <span style="color:#e07a00">(orange)</span>',a:['gleich lang','kürzer'],tip:'Vergleiche die Länge der blauen und der orangen Linie unter dem Spross.'}]},
+g_tab:{fixed:true,f:[{n:'A: Licht von oben',c:[]},{n:'B: Licht von rechts',c:[]}],rows:[
+ {t:'Wie viel Licht bekommen die beiden Seiten?',c:['beide gleich viel','eine Seite mehr'],a:['beide gleich viel','eine Seite mehr'],tip:'Kommt das Licht von oben, bekommen beide Seiten gleich viel ab. Kommt es von rechts, bekommt die rechte Seite mehr.'},
+ {t:'Die <span style="color:#1f5fbf"><b>blaue</b></span> Seite (links) ist im Vergleich zur orangen Seite …',c:['genauso lang','länger','kürzer'],a:['genauso lang','länger'],tip:'Vergleiche den blauen und den orangen Balken unter dem Spross.'},
+ {t:'Die <span style="color:#e07a00"><b>orange</b></span> Seite (rechts) ist im Vergleich zur blauen Seite …',c:['genauso lang','länger','kürzer'],a:['genauso lang','kürzer'],tip:'Vergleiche den blauen und den orangen Balken unter dem Spross.'}]},
 g_aux:{fixed:true,f:[{n:'Auxintransport',c:['wenig','mittel','viel']},{n:'Zellen',c:['kurze Zellen','mittlere Zellen','gestreckte Zellen']}],rows:[
  {t:'A (Licht von oben): linke Seite',a:['mittel','mittlere Zellen'],tip:'Bei Licht von oben wird das Auxin gleichmäßig verteilt.'},
  {t:'A (Licht von oben): rechte Seite',a:['mittel','mittlere Zellen'],tip:'Bei Licht von oben wird das Auxin gleichmäßig verteilt.'},
@@ -192,7 +192,7 @@ function game(id){var g=G[id];var st=S.game[id]||{v:{},tries:0,ok:0};var o=g.fix
  for(var k=0;k<g.rows.length;k++){var r=o?o[k]:k;var row=g.rows[r];var allok=true,any=false;
   var cells='';for(var f2=0;f2<g.f.length;f2++){var key=r+'_'+f2;var v=st.v[key]||'';var co=row.a[f2];if(st.tries>0){any=true;if(v!==co)allok=false;}
    var sel='<select data-g="'+id+'" data-k="'+key+'"'+(st.ok?' disabled':'')+'><option value="">– wählen –</option>';
-   for(var c=0;c<g.f[f2].c.length;c++){var cv=g.f[f2].c[c];sel+='<option'+(v===cv?' selected':'')+'>'+esc(cv)+'</option>';}
+   var cats=row.c||g.f[f2].c;for(var c=0;c<cats.length;c++){var cv=cats[c];sel+='<option'+(v===cv?' selected':'')+'>'+esc(cv)+'</option>';}
    cells+='<td>'+sel+'</td>';}
   var cls=st.tries>0?(allok?'ok':'no'):'';
   h+='<tr class="'+cls+'"><td>'+row.t+(st.tries>0&&!allok&&row.tip?'<div class="small">💡 '+row.tip+'</div>':'')+'</td>'+cells+'</tr>';}
@@ -220,9 +220,10 @@ function plantBase(o){o=o||{};var leaf=o.leaf||'#4caf50',ls=o.wilt?'#a08a3c':'#2
  h+='<rect x="40" y="280" width="320" height="80" fill="#d7b98e" rx="6"/>';
  h+='<line x1="200" y1="280" x2="200" y2="110" stroke="#3b7d2f" stroke-width="8" stroke-linecap="round"/>';
  if(o.cut)h+='<line x1="182" y1="205" x2="218" y2="215" stroke="#c62828" stroke-width="5"/><text x="222" y="218" font-size="14" fill="#c62828">✂</text>';
- var rot1=o.wilt?40:-25,rot2=o.wilt?-40:25;
- h+='<ellipse cx="160" cy="175" rx="42" ry="16" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot1+' 198 182)"/>';
- h+='<ellipse cx="240" cy="200" rx="42" ry="16" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot2+' 202 207)"/>';
+ var rot1=o.wilt?-60:25,rot2=o.wilt?60:-25,ry=o.wilt?9:16;if(o.wilt)leaf='#b5a642';
+ h+='<ellipse cx="160" cy="180" rx="'+(o.wilt?38:42)+'" ry="'+ry+'" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot1+' 198 182)"/>';
+ h+='<ellipse cx="240" cy="205" rx="'+(o.wilt?38:42)+'" ry="'+ry+'" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot2+' 202 207)"/>';
+ if(o.wilt)h+='<path d="M140 210 q4 4 8 0 q4 -4 8 0 M245 235 q4 4 8 0 q4 -4 8 0" stroke="#7a6a22" stroke-width="1.5" fill="none"/>';
  var pc=o.wilt?'#c9a3b5':'#e75480';
  for(var i=0;i<6;i++){var a=i*Math.PI/3;h+='<circle cx="'+(200+16*Math.cos(a)).toFixed(1)+'" cy="'+(98+16*Math.sin(a)).toFixed(1)+'" r="11" fill="'+pc+'"/>';}
  h+='<circle cx="200" cy="98" r="9" fill="#f6d743"/>';
@@ -357,7 +358,7 @@ var STEPS=[
  h+='<div>Licht kommt von: <button class="btn '+(p.light==='oben'?'on':'sec')+'" data-sp="oben">⬇️ oben (A)</button><button class="btn '+(p.light==='rechts'?'on':'sec')+'" data-sp="rechts">⬅️ rechts (B)</button><button class="btn '+(p.light==='links'?'on':'sec')+'" data-sp="links">➡️ links</button></div>';
  h+='<button class="btn" data-sp="grow" style="background:#1e6fd9">🌱 Wachsen lassen</button> <button class="btn sec" data-sp="reset">↩️ zurücksetzen</button>'+svgSpross(p.light,p.grown);
  var sn=p.seen||{};h+='<div class="small">Beobachtet: '+(sn.oben?'✅':'⬜')+' Licht von oben · '+(sn.rechts?'✅':'⬜')+' Licht von rechts</div>';
- if(sn.oben&&sn.rechts)h+='<h3>Fülle die Tabelle aus</h3><div class="task">Diese Tabelle findest du auch auf deinem Arbeitsblatt. Fülle sie zuerst hier aus.</div>'+game('g_tab');
+ if(sn.oben&&sn.rechts)h+='<h3>Was hast du beobachtet?</h3><div class="task">Vergleiche immer die <b>blaue</b> mit der <b>orangen</b> Seite: Schau dir dazu die beiden Balken unter dem Spross an.</div>'+game('g_tab')+(gameDone('g_tab')?'<div class="info"><b>So schreibst du es aufs Arbeitsblatt:</b> „beide gleich viel“ = <b>gleichmäßig</b>, „eine Seite mehr“ = <b>ungleichmäßig</b>, „genauso lang“ = <b>gleich lang</b>.</div>':'');
  return h;},g:function(){var sn=S.sp.seen||{};return sn.oben&&sn.rechts&&gameDone('g_tab');}},
 {n:'Wie entsteht die Krümmung?',ch:2,m:5,h:function(){return '<h2>Wie reagiert der Spross auf den Lichteinfall?</h2><div class="info"><ul><li><b>Spezialisierte Zellen in der Sprossspitze</b> nehmen den Lichtreiz wahr. Sie bilden den Botenstoff <b>Auxin</b>.</li><li>Das Auxin wird von der Spitze nach unten in den Spross transportiert.</li><li>Auxin bewirkt, dass sich Zellen <b>strecken</b>: Zellen mit viel Auxin werden länger als Zellen mit wenig Auxin.</li><li><b>Licht von oben:</b> Auf beiden Seiten kommt gleich viel Auxin an. Beide Seiten wachsen gleich stark, der Spross wächst gerade.</li><li><b>Licht von der Seite:</b> Auf der <b>Schattenseite</b> kommt <b>mehr</b> Auxin an, auf der <b>Lichtseite weniger</b>. Die Zellen der Schattenseite strecken sich stärker. Der Spross <b>krümmt sich zum Licht</b>.</li></ul></div>'+quiz('q_ft3')+quiz('q_ft4');},g:function(){return answered(['q_ft3','q_ft4']);}},
 {n:'Spiel 2: Auxin-Kärtchen',ch:2,m:10,h:function(){return '<h2>Spiel 2: Lege die Auxin-Kärtchen 🃏</h2><div class="info">Lege für beide Sprosse fest, wie viel Auxin auf jeder Seite transportiert wird (roter Pfeil: dünn = wenig, dick = viel) und welche Zellen dadurch entstehen. Die Grafik zeigt sofort, was du gelegt hast.</div>'+svgAux(S.game.g_aux)+game('g_aux');},g:function(){return gameDone('g_aux');}},
@@ -398,12 +399,14 @@ function renderView(){var st=STEPS[S.cur];var h='<div class="card"><span class="
  document.getElementById('meta').textContent='Schritt '+(S.cur+1)+' von '+STEPS.length+' · '+st.n;
  updNav();renderOv();}
 function updNav(){var st=STEPS[S.cur];var ok=!!st.g();var nb=document.getElementById('nextBtn');var last=S.cur>=STEPS.length-1;
- nb.disabled=!ok||last;nb.textContent=last?'Ende':'Weiter ▶';document.getElementById('hint').textContent=ok?'':'Erledige zuerst die Aufgaben auf dieser Seite.';
+ nb.disabled=!ok||last;nb.textContent=last?'Ende':'Weiter ▶';document.getElementById('hint').textContent=ok?'':'Erledige die Aufgaben oder springe über 📋 Übersicht.';
  document.querySelector('[data-act="back"]').disabled=S.cur===0;}
 function render(){renderView();save();}
 function renderOv(){var o=document.getElementById('ov');if(UI.ws){var h='<div class="overlay" data-act="close"><div class="card"><h2>📖 Wortspeicher</h2><dl>';for(var i=0;i<WS.length;i++)h+='<dt>'+WS[i][0]+'</dt><dd>'+WS[i][1]+'</dd>';o.innerHTML=h+'</dl><button class="btn" data-act="close">Schließen</button></div></div>';}
- else if(UI.toc){var t='<div class="overlay" data-act="close"><div class="card"><h2>📋 Übersicht</h2><div class="toc">';var lc=0;for(var j=0;j<STEPS.length;j++){if(STEPS[j].ch!==lc){lc=STEPS[j].ch;t+='<h3 style="margin:10px 0 4px">'+CHN[lc]+' (ca. '+chMin(lc)+' Min.)</h3>';}
-  t+=j<=S.max?'<a data-goto="'+j+'">'+(j===S.cur?'▶ ':'')+STEPS[j].n+'</a>':'<span>🔒 '+STEPS[j].n+'</span>';}
+ else if(UI.toc){var t='<div class="overlay" data-act="close"><div class="card"><h2>📋 Übersicht: Springe direkt zu jeder Seite</h2>';
+  t+='<div class="task"><b>🎯 Schnell wiederholen</b> (z. B. vor dem Test):<br>';var QK=['Hefteintrag 3','Hefteintrag 4','Arbeitsblatt (Hefteintrag 4.1)','Kurzcheck 1','Kurzcheck 2','Kurzcheck 3','Spiel 1: Spross beobachten','Spiel 2: Auxin-Kärtchen','Auswertung'];
+  for(var q=0;q<QK.length;q++)t+='<button class="btn sec" data-goto="'+stepIndexByName(QK[q])+'">'+QK[q]+'</button>';t+='</div><div class="toc">';var lc=0;for(var j=0;j<STEPS.length;j++){if(STEPS[j].ch!==lc){lc=STEPS[j].ch;t+='<h3 style="margin:10px 0 4px">'+CHN[lc]+' (ca. '+chMin(lc)+' Min.)</h3>';}
+  t+='<a data-goto="'+j+'">'+(j===S.cur?'▶ ':'')+((j<S.max||(j===S.max&&STEPS[j].g()))?'✅ ':'⬜ ')+STEPS[j].n+'</a>';}
   o.innerHTML=t+'</div><button class="btn" data-act="close">Schließen</button> <button class="btn sec" data-act="reset">🔄 Neu starten</button></div></div>';}
  else o.innerHTML='';}
 document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.dataset&&(t.dataset.q||t.dataset.act||t.dataset.amp||t.dataset.gcheck||t.dataset.gsolve||t.dataset.sim||t.dataset.sp||t.dataset.lr||t.dataset.sample||t.dataset.jump||t.dataset.goto)))t=t.parentNode;
