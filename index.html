@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Pflanze als Organismus – Lernpfad NuT 6</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:#eef3ea;color:#1f2a1f;font-size:17px;line-height:1.5}
+header{background:#2e5d34;color:#fff;padding:10px 16px;position:sticky;top:0;z-index:5;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+header .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:900px;margin:0 auto}
+header h1{font-size:18px;margin:0;flex:1}
+header button{background:#fff;color:#2e5d34;border:0;border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer}
+.bar{max-width:900px;margin:6px auto 0;height:8px;background:rgba(255,255,255,.3);border-radius:4px;overflow:hidden}
+.bar div{height:100%;background:#f6d743}
+.meta{max-width:900px;margin:4px auto 0;font-size:13px;opacity:.9}
+main{max-width:900px;margin:16px auto;padding:0 12px 90px}
+.card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:14px}
+.card h2{margin:0 0 6px;font-size:23px;color:#2e5d34}
+.tag{display:inline-block;font-size:13px;background:#dfeedd;color:#2e5d34;border-radius:20px;padding:2px 10px;margin-bottom:8px}
+.tag.z{background:#fde9c8;color:#8a5200}
+.info{background:#eef6fb;border-left:0;border-radius:10px;padding:10px 14px;margin:10px 0}
+.task{background:#f3f7f1;border-radius:10px;padding:10px 14px;margin:10px 0}
+.heft{background:#fff7c2;border:2px dashed #d9b800;border-radius:12px;padding:12px 16px;margin:12px 0}
+.heft h3{margin:0 0 8px;font-size:18px}
+.heft table,.tbl{border-collapse:collapse;width:100%;margin:6px 0;background:#fff}
+.heft td,.heft th,.tbl td,.tbl th{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top;font-size:16px}
+.heft th,.tbl th{background:#f0f0e0}
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opt{text-align:left;padding:10px 12px;border:2px solid #b9cdb5;border-radius:10px;background:#fff;font-size:16px;cursor:pointer;color:#1f2a1f}
+.opt:hover:not([disabled]){background:#f2f8f0}
+.opt.right{background:#d9f2d6;border-color:#3c9a44}
+.opt.wrong{background:#fbdcdc;border-color:#c94a4a}
+.opt[disabled]{cursor:default}
+.fb{border-radius:10px;padding:8px 12px;margin-top:6px;font-size:16px}
+.fb.ok{background:#e4f5e2}.fb.no{background:#fdecec}
+.q{margin:16px 0 4px;font-weight:600}
+.btn{background:#2e5d34;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:16px;cursor:pointer;margin:4px 4px 4px 0}
+.btn.sec{background:#e3ece0;color:#2e5d34}
+.btn.on{background:#f6d743;color:#1f2a1f}
+.btn[disabled]{opacity:.45;cursor:default}
+nav.foot{position:fixed;bottom:0;left:0;right:0;background:#fff;box-shadow:0 -2px 8px rgba(0,0,0,.12);padding:8px 12px;z-index:5}
+nav.foot .row{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hint{font-size:14px;color:#8a5200}
+.ampel{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.ampel button{border:2px solid #ccc;background:#fff;border-radius:10px;padding:8px 12px;font-size:15px;cursor:pointer}
+.ampel button.sel{border-color:#2e5d34;background:#e4f2e1;font-weight:600}
+.gm{width:100%;border-collapse:collapse;margin:8px 0}
+.gm td{padding:6px;border-bottom:1px solid #e3e3e3;vertical-align:middle}
+.gm select{font-size:16px;padding:6px;border-radius:8px;border:1px solid #9bb59a;max-width:100%}
+.gm tr.ok td{background:#e9f7e6}.gm tr.no td{background:#fdeeee}
+.small{font-size:14px;color:#555}
+textarea{width:100%;min-height:130px;font-size:16px;padding:10px;border-radius:10px;border:1px solid #9bb59a;font-family:inherit}
+.sample{background:#eef6fb;border-radius:10px;padding:10px 14px;margin-top:8px}
+svg{max-width:100%;height:auto;display:block;margin:8px auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}body{font-size:16px}.card{padding:14px}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-start;justify-content:center;padding:30px 10px;overflow:auto}
+.overlay .card{max-width:700px;width:100%}
+dl dt{font-weight:700;margin-top:8px}dl dd{margin:0 0 0 0}
+.toc a{display:block;padding:4px 0;color:#2e5d34;cursor:pointer;text-decoration:underline}
+.toc span{display:block;padding:4px 0;color:#aaa}
+.lr{font-size:26px;font-weight:700;background:#fff7c2;border-radius:12px;padding:10px 14px;display:inline-block;margin:6px 0}
+.stat{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.stat div{background:#f3f7f1;border-radius:10px;padding:6px 12px;font-size:15px}
+.big{font-size:40px}
+</style>
+</head>
+<body>
+<header><div class="row"><h1>🌱 Die Pflanze als Organismus</h1><button data-act="toc">📋 Übersicht</button><button data-act="ws">📖 Wortspeicher</button></div>
+<div class="bar"><div id="pbar"></div></div><div class="meta" id="meta"></div></header>
+<main id="app"></main>
+<nav class="foot"><div class="row"><button class="btn sec" data-act="back">◀ Zurück</button><span class="hint" id="hint"></span><button class="btn" data-act="next" id="nextBtn">Weiter ▶</button></div></nav>
+<div id="ov"></div>
+<script>
+var SAMPLES={};
+var Q={
+/* Kapitel 1 */
+q_naehr:{sec:'org',t:'Der Mensch hat einen Verdauungsapparat, damit er Nährstoffe bekommt. Woher bekommt eine Pflanze ihre Nährstoffe (Zucker)?',o:['Sie stellt den Zucker in den Blättern selbst her.','Sie nimmt fertigen Zucker mit der Wurzel aus der Erde auf.','Sie frisst kleine Tiere, die auf ihre Blätter fallen.','Sie bekommt den Zucker aus dem Gießwasser.'],c:0,exp:'Mit Licht, Wasser und Kohlenstoffdioxid stellt sie Zucker her: Fotosynthese.',tip:'Die Erde liefert Wasser und Mineralsalze, aber keinen Zucker. Den Zucker stellt die Pflanze in den grünen Blättern selbst her (Fotosynthese).'},
+q_wurzel:{sec:'org',t:'Welche zwei Aufgaben hat die Wurzel?',o:['Verankern und Wasser mit Mineralsalzen aufnehmen','Zucker herstellen und Wasser aus dem Boden aufnehmen','Verankern und die Blüten und Früchte tragen','Wasser verdunsten und Licht für die Blätter sammeln'],c:0,tip:'Zucker entsteht nur in grünen Teilen mit Licht, die Wurzel ist im dunklen Boden. Die Wurzel hält die Pflanze fest und nimmt Wasser mit Mineralsalzen auf.'},
+q_spross:{sec:'org',t:'Was macht die Sprossachse (der Stängel)?',o:['Sie trägt Blätter, Blüten und leitet Stoffe.','Sie nimmt das Wasser direkt aus dem Boden auf.','Sie stellt den meisten Zucker der Pflanze her.','Sie bildet nach der Bestäubung die Samen.'],c:0,tip:'Wasser nimmt die Wurzel auf, Zucker entsteht vor allem im Blatt. Die Sprossachse ist Stütze und „Leitung“ dazwischen.'},
+q_blatt:{sec:'org',t:'Warum nennt man ein grünes Blatt auch „Nährstofffabrik“?',o:['Dort entsteht mithilfe von Licht Zucker.','Dort werden Nährstoffe aus der Erde gesammelt.','Dort wird der Zucker aus der Wurzel verbraucht.','Dort wird Wasser zu Mineralsalzen umgewandelt.'],c:0,tip:'Im Blatt läuft die Fotosynthese: Aus Wasser und Kohlenstoffdioxid entsteht mit Licht Zucker.'},
+q_bluete:{sec:'org',t:'Wozu dient die Blüte?',o:['Fortpflanzung: Es entstehen Frucht und Samen.','Sie lockt Insekten an, um sie zu verdauen.','Sie verdunstet das meiste Wasser der Pflanze.','Sie speichert Zucker für den Winter.'],c:0,tip:'Insekten bestäuben die Blüte, danach entstehen Frucht und Samen. Das ist Fortpflanzung.'},
+q_tr1:{sec:'tr',t:'In welche Richtung fließt das Wasser in der Pflanze?',o:['Von der Wurzel über den Spross ins Blatt','Von den Blättern über den Spross zur Wurzel','Vom Regen über die Blätter in den Spross','Je nach Wetter mal nach oben, mal nach unten'],c:0,tip:'Die Wurzel nimmt das Wasser auf, die Blätter verdunsten es. Also fließt es von unten nach oben.'},
+q_tr2:{sec:'tr',t:'Wodurch wird das Wasser in der Pflanze nach oben gezogen?',o:['Verdunstung an den Blättern erzeugt Sog.','Die Wurzel pumpt es wie ein Herz nach oben.','Die Sonne zieht das Wasser direkt nach oben.','Die Blüte saugt das Wasser mit dem Nektar an.'],c:0,tip:'Pflanzen haben keine Pumpe. Weil oben an den Blättern Wasser verdunstet, wird von unten Wasser nachgezogen, wie bei einem Strohhalm.'},
+q_tr3:{sec:'tr',t:'Wohin wird der Zucker aus den Blättern transportiert?',o:['Zu nicht grünen Teilen wie Wurzel und Blüte','Nur in die Blüte, weil sie am meisten braucht','In den Boden, damit die Erde gedüngt wird','Nirgendwohin, er bleibt im Blatt'],c:0,tip:'Wurzel, Blüte und Früchte können keinen Zucker herstellen. Sie bekommen ihn über den Spross aus den Blättern.'},
+q_sim1:{sec:'tr',t:'Licht aus: Was passiert in der Pflanze?',o:['Kein Zucker mehr, Wurzel und Blüte hungern.','Es kommt kein Wasser mehr in den Blättern an.','Die Pflanze macht im Dunkeln mehr Zucker.','Die Wurzel stellt jetzt selbst Zucker her.'],c:0,tip:'Ohne Licht keine Fotosynthese. Wasser kommt zwar oben an, aber Zucker entsteht nicht mehr.'},
+q_sim2:{sec:'tr',t:'Wurzelhaare weg: Warum stellt das Blatt dann auch keinen Zucker mehr her?',o:['Ohne Wasser gibt es keine Fotosynthese.','Die Wurzelhaare stellen den Zucker eigentlich her.','Ohne Wurzelhaare kommt kein Licht an das Blatt.','Das Blatt braucht Erde, um Zucker zu bilden.'],c:0,tip:'Für die Fotosynthese braucht das Blatt Wasser. Das kommt nur über die Wurzelhaare in die Pflanze.'},
+q_sim3:{sec:'tr',t:'Spross durchtrennt: Was fällt aus?',o:['Wasser nach oben und Zucker nach unten','Nur das Wasser nach oben','Nur der Zucker nach unten','Gar nichts, Blätter versorgen sich selbst'],c:0,tip:'Der Spross ist die Leitung in beide Richtungen. Ist sie unterbrochen, kommt weder Wasser oben noch Zucker unten an.'},
+q_kc1:{sec:'org',t:'Eine Kartoffel ist eine verdickte …',o:['Sprossknolle','Wurzelknolle','Frucht','Samenkapsel'],c:0,tip:'Die „Augen“ der Kartoffel sind Knospen, aus denen neue Triebe wachsen. Knospen gibt es nur am Spross, deshalb ist die Kartoffel eine Sprossknolle.'},
+q_kc2:{sec:'tr',t:'Gießt man eine Topfpflanze mit Wasser, das blau gefärbt ist, werden nach einiger Zeit die Blattadern blau. Was zeigt das?',o:['Wasser wird von der Wurzel ins Blatt geleitet.','Blätter nehmen Farbe direkt aus der Luft auf.','Der Zucker im Blatt färbt sich mit der Zeit blau.','Die Blüte gibt die blaue Farbe an das Blatt ab.'],c:0,tip:'Das gefärbte Wasser ist über die Wurzel und die Leitelemente im Spross nach oben bis in die Blätter gewandert.'},
+q_dia1:{sec:'ver',t:'Wann gibt die Pflanze am meisten Wasser ab?',o:['Am Nachmittag (ca. 14 Uhr)','Um Mitternacht (ca. 24 Uhr)','Am frühen Morgen (ca. 6 Uhr)','Den ganzen Tag gleich viel'],c:0,tip:'Lies den höchsten Punkt der gestrichelten Kurve ab und schau senkrecht nach unten auf die Uhrzeit.'},
+q_dia2:{sec:'ver',t:'Warum steigt die Wasseraufnahme erst etwas später an als die Wasserabgabe?',o:['Erst die Verdunstung zieht Wasser nach.','Die Wurzel wacht morgens später auf.','Die Pflanze nimmt nur nachts Wasser auf.','Das Wasser muss im Boden erst warm werden.'],c:0,tip:'Zuerst verdunstet oben Wasser. Dadurch entsteht der Sog, der unten Wasser nachzieht. Deshalb folgt die Aufnahme der Abgabe.'},
+q_dia3:{sec:'ver',t:'Warum gibt die Pflanze nachts nur wenig Wasser ab?',o:['Es ist dunkel und kühl, es verdunstet wenig.','Nachts hat die Pflanze kein Wasser mehr.','Nachts schläft die Pflanze und braucht nichts.','Nachts wird das Wasser zu Zucker umgebaut.'],c:0,tip:'Bei Wärme und Licht verdunstet viel Wasser, nachts ist es kühl und dunkel. Pflanzen „schlafen“ nicht wie wir.'},
+q_v1:{sec:'ver',t:'Welche Hypothese (Vermutung) wird mit diesem Versuch überprüft?',o:['Mehr Blätter verdunsten mehr Wasser.','Zweige wachsen in Wasser schneller.','Eine Ölschicht schadet den Zweigen.','Ohne Wurzel nimmt ein Zweig kein Wasser auf.'],c:0,tip:'Die Zylinder unterscheiden sich nur in der Zahl der Blätter. Also geht es darum, ob die Blätter die Wassermenge beeinflussen.'},
+q_v2:{sec:'ver',t:'Wozu dient Messzylinder 1 ohne Pflanze?',o:['Er zeigt, ob Wasser ohne Pflanze verschwindet.','Er dient als Vorrat zum Nachfüllen der anderen.','Er zeigt, wie viel Öl die Zweige aufnehmen.','Er zeigt, wie schnell Öl im Licht verdunstet.'],c:0,tip:'Das ist der Kontrollansatz: Sinkt dort der Wasserstand nicht, dann liegt es in den anderen Zylindern wirklich an der Pflanze.'},
+q_v3:{sec:'ver',t:'Warum wird eine Ölschicht auf das Wasser getropft?',o:['Damit kein Wasser direkt verdunstet.','Damit die Zweige leichter Wasser aufnehmen.','Damit das Wasser nicht schlecht wird und schimmelt.','Damit die Zweige zusätzliche Nährstoffe bekommen.'],c:0,tip:'Öl lässt kein Wasser durch. So kann Wasser nur noch über die Pflanze verschwinden, nicht über die Wasseroberfläche.'},
+q_v4:{sec:'ver',t:'Was ist das Ergebnis des Versuchs?',o:['Mit vielen Blättern sinkt der Stand am meisten.','In allen Zylindern sinkt der Stand gleich stark.','Ohne Blätter sinkt der Wasserstand am meisten.','Ohne Pflanze sinkt der Wasserstand am meisten.'],c:0,tip:'Vergleiche die Höhe der Wassersäulen: Je mehr Blätter, desto mehr Wasser ist verschwunden, weil mehr verdunstet.'},
+/* Kapitel 2 */
+q_leben:{sec:'rz',t:'Eine Fliege berührt die Fühlborsten der Venusfliegenfalle und die Falle klappt zu. Welches Kennzeichen des Lebens zeigt die Pflanze dabei?',o:['Reizbarkeit','Fortpflanzung','Wachstum','Stoffwechsel'],c:0,exp:'Die Pflanze nimmt einen Reiz (Berührung) auf und reagiert darauf.',tip:'Das Verdauen später ist Stoffwechsel. Das Zuklappen selbst ist eine Reaktion auf einen Reiz (Berührung): Reizbarkeit.'},
+q_rz1:{sec:'rz',t:'Womit nehmen Pflanzen Reize auf?',o:['Mit spezialisierten Zellen','Mit kleinen Sinnesorganen an den Blättern','Mit einem Nervensystem wie der Mensch','Gar nicht, Pflanzen spüren nichts'],c:0,tip:'Pflanzen haben keine Sinnesorgane und keine Nerven. Spezialisierte Zellen in bestimmten Bereichen übernehmen diese Aufgabe.'},
+q_rz2:{sec:'rz',t:'Wie reagieren die meisten Pflanzen auf Reize?',o:['Meist langsam durch Wachstum','Blitzschnell wie die Venusfliegenfalle','Gar nicht, nur Tiere reagieren auf Reize','Mit Muskeln, die die Blätter bewegen'],c:0,tip:'Schnelle Bewegungen wie bei der Venusfliegenfalle sind selten. Meist ändert sich langsam die Wachstumsrichtung.'},
+q_rz3:{sec:'rz',t:'Die Tulpe öffnet ihre Blüte erst, wenn es warm ist. Welche Bedeutung hat das?',o:['Fortpflanzung: Insekten fliegen bei Wärme.','Ernährung: Die Blüte macht dann Fotosynthese.','Schutz: So schützt sich die Blüte vor Hitze.','Wachstum: Die Blüte wird dadurch größer.'],c:0,tip:'Bestäubende Insekten sind nur bei Wärme unterwegs. Bei Kälte bleibt die Blüte zu und schützt ihre Fortpflanzungsorgane.'},
+q_ft1:{sec:'ft',t:'Was bedeutet Fototropismus?',o:['Durch Licht ausgelöste Wachstumsbewegung','Herstellung von Zucker mithilfe von Licht','Schnelles Zuklappen der Blätter bei Berührung','Wachstum der Wurzel zur Schwerkraft hin'],c:0,exp:'photos = Licht, tropos = Wendung.',tip:'Nicht mit Fotosynthese verwechseln! „photos“ heißt Licht, „tropos“ heißt Wendung: Die Pflanze wendet sich durch Wachstum zum Licht.'},
+q_ft2:{sec:'ft',t:'Welchen Vorteil hat es für die Pflanze, zum Licht zu wachsen?',o:['Mehr Licht für die Fotosynthese','Insekten finden die Pflanze besser.','Die Wurzel bekommt dadurch mehr Wasser.','Die Pflanze wird im Schatten nicht so heiß.'],c:0,tip:'Mehr Licht heißt mehr Fotosynthese, also mehr Zucker. Das ist eine Bedeutung für die Ernährung.'},
+q_ft3:{sec:'ft',t:'Wo wird der Botenstoff Auxin gebildet?',o:['In der Sprossspitze','In der Wurzelspitze','In allen Blättern gleich','In der Blüte'],c:0,tip:'Die spezialisierten Zellen, die Licht wahrnehmen und Auxin bilden, sitzen ganz oben in der Sprossspitze.'},
+q_ft4:{sec:'ft',t:'Licht kommt von rechts. Auf welcher Seite strecken sich die Zellen stärker?',o:['Links, auf der Schattenseite','Rechts, auf der Lichtseite','Auf beiden Seiten gleich stark','Gar nicht, nur die Spitze bewegt sich'],c:0,tip:'Auf der Schattenseite kommt mehr Auxin an. Dort strecken sich die Zellen stärker, deshalb krümmt sich der Spross zum Licht.'},
+q_kc4:{sec:'ft',t:'Eine Zimmerpflanze steht am Fenster. Du drehst den Topf jeden Tag ein Stück. Was beobachtest du nach einigen Wochen?',o:['Sie wächst ziemlich gerade nach oben.','Sie krümmt sich immer stärker zum Fenster.','Sie wächst vom Fenster weg nach innen.','Sie hört auf zu wachsen, weil sie gestört wird.'],c:0,tip:'Weil das Licht jeden Tag von einer anderen Seite kommt, wechselt auch die Schattenseite. Die Krümmungen gleichen sich aus.'},
+/* Zusatz (zählt nicht) */
+z_lab:{sec:'z',t:'Wohin wachsen die Bohnenpflanzen im Labyrinth nach sieben Tagen?',o:['Um die Pappwände herum bis zum Loch','Gerade nach oben gegen den Deckel','Zur dunkelsten Ecke des Kartons','Gar nicht, im Dunkeln wächst nichts'],c:0,tip:'Licht kommt nur durch das Loch. Der Spross wächst immer zur hellsten Stelle und findet so den Weg um die Wände herum.'},
+z_k1:{sec:'z',t:'Keimling a: Ein schwarzes Tütchen sitzt auf der Spitze. Was passiert bei Licht von der Seite?',o:['Er wächst gerade weiter.','Er krümmt sich zum Licht.','Er krümmt sich vom Licht weg.','Er wächst nicht mehr.'],c:0,tip:'Die Spitze nimmt den Lichtreiz wahr. Ist sie abgedeckt, „merkt“ der Keimling nicht, woher das Licht kommt.'},
+z_k2:{sec:'z',t:'Keimling b: Die Spitze wurde abgeschnitten. Was passiert?',o:['Er krümmt sich nicht zum Licht.','Er krümmt sich besonders stark.','Er bildet sofort eine neue Spitze.','Er wächst zur Schattenseite.'],c:0,tip:'Ohne Spitze wird kein Auxin mehr gebildet. Ohne Auxin keine ungleiche Streckung und keine Krümmung.'},
+z_k3:{sec:'z',t:'Keimling c: Ein schwarzes Röhrchen bedeckt den Stängel, die Spitze bleibt frei. Was passiert?',o:['Er krümmt sich zum Licht.','Er wächst gerade weiter.','Er krümmt sich vom Licht weg.','Er wächst nicht mehr.'],c:0,tip:'Die Spitze sieht das Licht noch. Sie verteilt das Auxin ungleich, der Stängel darunter krümmt sich trotzdem.'},
+z_k4:{sec:'z',t:'Wozu dienen die fünf unbehandelten Keimlinge (d)?',o:['Kontrolle: Sie zeigen das normale Wachstum.','Ersatz, falls andere Keimlinge kaputtgehen','Sie sollen das Licht für die anderen abhalten.','Sie liefern Auxin für die anderen Keimlinge.'],c:0,tip:'Ohne Kontrollgruppe wüsste man nicht, ob die Keimlinge in diesem Karton überhaupt zum Licht wachsen.'},
+z_sk1:{sec:'z',t:'Eine Pflanze wird im Dunkeln waagerecht hingelegt. Was beobachtest du nach ein paar Tagen?',o:['Spross wächst nach oben, Wurzel nach unten','Spross und Wurzel wachsen waagerecht weiter','Spross wächst nach unten, Wurzel nach oben','Beide wachsen nach oben zur Luft'],c:0,tip:'Im Dunkeln kann nur die Schwerkraft der Reiz sein. Die Wurzel wächst zur Schwerkraft hin, der Spross von ihr weg.'},
+z_mim:{sec:'z',t:'Die Mimose klappt ihre Blätter in 0,08 Sekunden zusammen. Der Lidschlussreflex des Menschen braucht 0,25 Sekunden. Was stimmt?',o:['Die Mimose ist etwa dreimal so schnell.','Der Mensch ist etwa dreimal so schnell.','Beide sind ungefähr gleich schnell.','Die Mimose ist etwa dreißigmal so schnell.'],c:0,tip:'0,25 : 0,08 ≈ 3. Die Mimose ist also rund dreimal so schnell wie dein Lidschluss.'},
+z_mim2:{sec:'z',t:'Welche Bedeutung hat das schnelle Zusammenklappen der Mimose?',o:['Schutz vor Fressfeinden','Ernährung durch Fotosynthese','Fortpflanzung durch Bestäubung','Wasser sparen in der Mittagshitze'],c:0,tip:'Ein Tier berührt das Blatt, die Blätter klappen zusammen und sehen plötzlich welk aus. Das schreckt Fressfeinde ab.'},
+z_gb:{sec:'z',t:'Gänseblümchen werden in kaltes und in 30 °C warmes Wasser gestellt. Welche Hypothese passt zu diesem Versuch?',o:['Gänseblümchen öffnen sich bei Wärme weiter.','Gänseblümchen wachsen im Wasser zum Licht.','Gänseblümchen öffnen sich nur bei Berührung.','Gänseblümchen schließen sich bei Wärme.'],c:0,tip:'Der einzige Unterschied zwischen den Gläsern ist die Temperatur. Wie bei der Tulpe ist Wärme hier der Reiz.'},
+z_rk:{sec:'z',t:'Was fehlt bei der Reiz-Reaktions-Kette der Pflanze im Vergleich zum Menschen?',o:['Die Verarbeitung im Gehirn','Die Aufnahme des Reizes in der Spitze','Die Weiterleitung einer Information','Die Reaktion, zum Beispiel eine Bewegung'],c:0,tip:'Auch bei der Pflanze wird ein Reiz aufgenommen, eine Information weitergeleitet (Auxin) und es gibt eine Reaktion. Ein Gehirn hat sie aber nicht.'}
+};
+var NACHLESEN={org:'Organe und ihre Aufgaben',tr:'Wasser hoch, Zucker runter',ver:'Diagramm und Versuch',rz:'Reize aus der Umwelt',ft:'Fototropismus'};
+
+var G={
+g_label:{fixed:true,f:[{n:'Organ',c:['Blüte','Blatt','Sprossachse','Wurzel']}],rows:[{t:'Nummer 1',a:['Blüte']},{t:'Nummer 2',a:['Blatt']},{t:'Nummer 3',a:['Sprossachse']},{t:'Nummer 4',a:['Wurzel']}]},
+g_essen:{f:[{n:'Pflanzenteil',c:['Wurzel','Spross','Blatt','Blüte','Frucht oder Samen']}],rows:[
+ {t:'🥕 Karotte',a:['Wurzel'],tip:'Die Karotte wächst senkrecht in den Boden und speichert dort Nährstoffe.'},
+ {t:'🥔 Kartoffel',a:['Spross'],tip:'Achtung Falle! Die „Augen“ sind Knospen, die gibt es nur am Spross. Die Kartoffel ist eine Sprossknolle.'},
+ {t:'Spargel',a:['Spross'],tip:'Spargel sind junge Triebe, die aus dem Boden wachsen, also Spross.'},
+ {t:'Kohlrabi',a:['Spross'],tip:'Die Kugel des Kohlrabi ist der verdickte Stängel, an dem die Blätter sitzen.'},
+ {t:'🥬 Salat',a:['Blatt']},{t:'Spinat',a:['Blatt']},
+ {t:'🥦 Brokkoli',a:['Blüte'],tip:'Die kleinen grünen Kügelchen sind Blütenknospen.'},
+ {t:'Blumenkohl',a:['Blüte'],tip:'Wie beim Brokkoli isst man viele kleine Blütenknospen.'},
+ {t:'🍅 Tomate',a:['Frucht oder Samen'],tip:'In der Tomate sind Samen, sie ist also eine Frucht, auch wenn man sie als Gemüse kocht.'},
+ {t:'🍎 Apfel',a:['Frucht oder Samen']},
+ {t:'Erbsen',a:['Frucht oder Samen'],tip:'Die Erbsen in der Schote sind Samen.'},
+ {t:'🍞 Mehl (aus Weizenkörnern)',a:['Frucht oder Samen'],tip:'Mehl wird aus gemahlenen Getreidekörnern gemacht, das sind Früchte mit Samen.'}]},
+g_reiz:{f:[{n:'Reiz',c:['Licht','Wärme','Schwerkraft','Berührung','chemischer Stoff']},{n:'Bedeutung für',c:['Ernährung','Fortpflanzung','Schutz']}],rows:[
+ {t:'Das Fangblatt der Venusfliegenfalle klappt zu.',a:['Berührung','Ernährung'],tip:'Die Fliege berührt die Fühlborsten. Gefangen und verdaut liefert sie Mineralsalze.'},
+ {t:'Der Spross der Sonnenblume wächst zum Licht.',a:['Licht','Ernährung'],tip:'Mehr Licht bedeutet mehr Fotosynthese.'},
+ {t:'Die Wurzel wächst in die Tiefe.',a:['Schwerkraft','Ernährung'],tip:'Die Wurzel wächst zur Schwerkraft hin, also nach unten, und findet dort Wasser und Mineralsalze.'},
+ {t:'Die Tulpe öffnet ihre Blüte.',a:['Wärme','Fortpflanzung'],tip:'Erst bei Wärme fliegen Insekten, die die Blüte bestäuben.'},
+ {t:'Der Blütenstiel der Erdnuss wächst nach der Befruchtung in den Boden.',a:['Schwerkraft','Fortpflanzung'],tip:'Er wächst nach unten, damit die Samen im Boden reifen und dort neue Pflanzen austreiben.'},
+ {t:'Der Sauerklee klappt bei Wassertropfen seine Blätter zusammen.',a:['Berührung','Schutz'],tip:'Die Tropfen berühren das Blatt. Zusammengeklappt ist es vor Schäden geschützt.'},
+ {t:'Die Mimose klappt bei Berührung ihre Blätter zusammen.',a:['Berührung','Schutz'],tip:'Fressfeinde werden abgeschreckt, weil das Blatt plötzlich welk aussieht.'},
+ {t:'Die Maispflanze bildet ein Abwehrgift, wenn Käfer an ihr fressen.',a:['chemischer Stoff','Schutz'],tip:'Die Pflanze erkennt Stoffe aus dem Speichel der Käfer, das ist ein chemischer Reiz.'}]},
+g_tab:{fixed:true,f:[{n:'A: Licht von oben',c:['gleichmäßig','ungleichmäßig','gleich lang','länger','kürzer']},{n:'B: Licht von rechts',c:['gleichmäßig','ungleichmäßig','gleich lang','länger','kürzer']}],rows:[
+ {t:'Lichteinfall auf den Spross',a:['gleichmäßig','ungleichmäßig'],tip:'Kommt das Licht von oben, bekommen beide Seiten gleich viel ab. Von rechts bekommt die rechte Seite mehr.'},
+ {t:'linke Sprossseite <span style="color:#1f5fbf">(blau)</span>',a:['gleich lang','länger'],tip:'Vergleiche die Länge der blauen und der orangen Linie unter dem Spross.'},
+ {t:'rechte Sprossseite <span style="color:#e07a00">(orange)</span>',a:['gleich lang','kürzer'],tip:'Vergleiche die Länge der blauen und der orangen Linie unter dem Spross.'}]},
+g_aux:{fixed:true,f:[{n:'Auxintransport',c:['wenig','mittel','viel']},{n:'Zellen',c:['kurze Zellen','mittlere Zellen','gestreckte Zellen']}],rows:[
+ {t:'A (Licht von oben): linke Seite',a:['mittel','mittlere Zellen'],tip:'Bei Licht von oben wird das Auxin gleichmäßig verteilt.'},
+ {t:'A (Licht von oben): rechte Seite',a:['mittel','mittlere Zellen'],tip:'Bei Licht von oben wird das Auxin gleichmäßig verteilt.'},
+ {t:'B (Licht von rechts): linke Seite = Schattenseite',a:['viel','gestreckte Zellen'],tip:'Auf der lichtabgewandten Seite kommt mehr Auxin an, die Zellen strecken sich stärker.'},
+ {t:'B (Licht von rechts): rechte Seite = Lichtseite',a:['wenig','kurze Zellen'],tip:'Auf der lichtzugewandten Seite kommt weniger Auxin an, die Zellen bleiben kurz.'}]},
+g_lab:{fixed:true,f:[{n:'Richtig oder falsch?',c:['richtig','falsch']}],rows:[
+ {t:'Die Bohnen wachsen zum Loch, weil dort Licht hereinkommt.',a:['richtig']},
+ {t:'Die Pflanze „sieht“ den Weg mit Augen in der Sprossspitze.',a:['falsch'],tip:'Pflanzen haben keine Augen. Spezialisierte Zellen in der Spitze nehmen das Licht wahr.'},
+ {t:'Die Krümmung um die Wände entsteht durch ungleiches Wachstum der Sprossseiten.',a:['richtig']},
+ {t:'Ohne Loch im Deckel würden die Bohnen schneller zum Licht finden.',a:['falsch'],tip:'Ohne Loch gäbe es keinen Lichtreiz, die Pflanzen würden ohne Richtung wachsen.'}]}
+};
+var KEY='lernpfad-pflanze-als-organismus-v1';
+var S={cur:0,max:0,ans:{},ck:{},amp:{},tr:{},game:{},vert:{},ord:{},sim:{l:1,h:1,s:1,run:0,tried:{}},sp:{light:'oben',grown:0,seen:{}},lr:null};
+var UI={ws:0,toc:0};
+function fresh(){return {cur:0,max:0,ans:{},ck:{},amp:{},tr:{},game:{},vert:{},ord:{},sim:{l:1,h:1,s:1,run:0,tried:{}},sp:{light:'oben',grown:0,seen:{}},lr:null};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{var t=localStorage.getItem(KEY);if(!t)return;var d=JSON.parse(t);if(!d||typeof d!=='object')return;var f=fresh();for(var k in f){if(d[k]!==undefined&&d[k]!==null)S[k]=d[k];}
+ if(typeof S.cur!=='number'||S.cur<0)S.cur=0;if(typeof S.max!=='number'||S.max<0)S.max=0;
+ if(S.cur>STEPS.length-1)S.cur=STEPS.length-1;if(S.max>STEPS.length-1)S.max=STEPS.length-1;if(S.cur>S.max)S.max=S.cur;
+ if(!S.sim||typeof S.sim!=='object')S.sim=f.sim;if(!S.sim.tried)S.sim.tried={};if(!S.sp||typeof S.sp!=='object')S.sp=f.sp;if(!S.sp.seen)S.sp.seen={};
+ }catch(e){S=fresh();}}
+var stimer=null;function saveSoon(){clearTimeout(stimer);stimer=setTimeout(save,400);}
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function order(id,n){var o=S.ord[id];if(o&&o.length===n)return o;o=[];for(var i=0;i<n;i++)o.push(i);for(var j=n-1;j>0;j--){var r=Math.floor(Math.random()*(j+1));var t=o[j];o[j]=o[r];o[r]=t;}S.ord[id]=o;return o;}
+function answered(ids){for(var i=0;i<ids.length;i++){if(S.ans[ids[i]]===undefined)return false;}return true;}
+
+function quiz(id){var q=Q[id];var o=order(id,q.o.length);var a=S.ans[id];var h='<div class="q">'+q.t+'</div><div class="opts">';
+ for(var k=0;k<o.length;k++){var i=o[k];var cls='opt';if(a!==undefined){if(i===q.c)cls+=' right';else if(i===a)cls+=' wrong';}
+  h+='<button class="'+cls+'" data-q="'+id+'" data-i="'+i+'"'+(a!==undefined?' disabled':'')+'>'+esc(q.o[i])+'</button>';}
+ h+='</div>';
+ if(a!==undefined){if(a===q.c)h+='<div class="fb ok">✅ Richtig! '+(q.exp||'')+'</div>';else h+='<div class="fb no">❌ Leider falsch. '+(q.tip||'')+'</div>';}
+ return h;}
+function heftBox(title,body){return '<div class="heft"><h3>📓 Hefteintrag — bitte abschreiben<br><span style="font-weight:400">'+title+'</span></h3>'+body+'</div>';}
+function check(id,label){return '<label style="display:block;margin:10px 0;font-size:17px"><input type="checkbox" data-ck="'+id+'" '+(S.ck[id]?'checked':'')+' style="transform:scale(1.4);margin-right:10px">'+label+'</label>';}
+function ampel(id){var a=S.amp[id];var L=[['g','🟢 Kann ich sicher'],['y','🟡 Bin unsicher'],['r','🔴 Kann ich noch nicht']];var h='<div class="task"><b>Wie sicher bist du?</b><div class="ampel">';
+ for(var i=0;i<3;i++)h+='<button data-amp="'+id+'" data-v="'+L[i][0]+'" class="'+(a===L[i][0]?'sel':'')+'">'+L[i][1]+'</button>';h+='</div>';
+ if(a==='y'||a==='r')h+='<div class="small">Tipp: Geh mit „◀ Zurück“ noch einmal zu den Erklärseiten oder schau in den 📖 Wortspeicher.</div>';
+ return h+'</div>';}
+
+/* Spiele: G[id]={rows:[{t,a:[..],tip}],f:[{n,c:[..]}],fixed}  */
+function game(id){var g=G[id];var st=S.game[id]||{v:{},tries:0,ok:0};var o=g.fixed?null:order(id,g.rows.length);
+ var h='<table class="gm"><tr>'+'<td></td>';for(var f=0;f<g.f.length;f++)h+='<td class="small"><b>'+g.f[f].n+'</b></td>';h+='</tr>';
+ for(var k=0;k<g.rows.length;k++){var r=o?o[k]:k;var row=g.rows[r];var allok=true,any=false;
+  var cells='';for(var f2=0;f2<g.f.length;f2++){var key=r+'_'+f2;var v=st.v[key]||'';var co=row.a[f2];if(st.tries>0){any=true;if(v!==co)allok=false;}
+   var sel='<select data-g="'+id+'" data-k="'+key+'"'+(st.ok?' disabled':'')+'><option value="">– wählen –</option>';
+   for(var c=0;c<g.f[f2].c.length;c++){var cv=g.f[f2].c[c];sel+='<option'+(v===cv?' selected':'')+'>'+esc(cv)+'</option>';}
+   cells+='<td>'+sel+'</td>';}
+  var cls=st.tries>0?(allok?'ok':'no'):'';
+  h+='<tr class="'+cls+'"><td>'+row.t+(st.tries>0&&!allok&&row.tip?'<div class="small">💡 '+row.tip+'</div>':'')+'</td>'+cells+'</tr>';}
+ h+='</table>';
+ if(!st.ok)h+='<button class="btn" data-gcheck="'+id+'">Prüfen</button>';
+ if(st.ok)h+='<div class="fb ok">✅ Alles richtig zugeordnet!</div>';
+ else if(st.tries>0){h+='<div class="fb no">Noch nicht alles richtig. Die rot markierten Zeilen ändern und noch einmal prüfen.</div>';
+  if(st.tries>=3)h+='<button class="btn sec" data-gsolve="'+id+'">Lösung zeigen</button>';}
+ return h;}
+function gameDone(id){var st=S.game[id];return !!(st&&st.ok);}
+function gameCheck(id){var g=G[id];var st=S.game[id]||{v:{},tries:0,ok:0};st.tries++;var ok=true;
+ for(var r=0;r<g.rows.length;r++)for(var f=0;f<g.f.length;f++){if(st.v[r+'_'+f]!==g.rows[r].a[f])ok=false;}
+ st.ok=ok?1:0;S.game[id]=st;}
+function gameSolve(id){var g=G[id];var st=S.game[id]||{v:{},tries:0,ok:0};for(var r=0;r<g.rows.length;r++)for(var f=0;f<g.f.length;f++)st.v[r+'_'+f]=g.rows[r].a[f];st.ok=1;st.solved=1;S.game[id]=st;}
+
+/* Freitext */
+function txt(id,min,sample){SAMPLES[id]=sample;var v=S.tr[id]||'';var h='<textarea data-tr="'+id+'" data-min="'+min+'" placeholder="Schreibe hier deine Antwort …">'+esc(v)+'</textarea>';
+ h+='<div class="small" id="cnt_'+id+'">'+v.length+' von mindestens '+min+' Zeichen</div>';
+ h+='<div id="smp_'+id+'">'+(v.length>=min?sampleHtml(id,sample):'')+'</div>';return h;}
+function sampleHtml(id,sample){return S.vert['s_'+id]?'<div class="sample"><b>Beispiellösung zum Vergleichen:</b><br>'+sample+'</div>':'<button class="btn sec" data-sample="'+id+'">💡 Beispiellösung anzeigen</button>';}
+function txtOk(id,min){return (S.tr[id]||'').length>=min;}
+var MK=0;
+function arrowDef(id,col){return '<defs><marker id="'+id+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="'+col+'"/></marker></defs>';}
+function plantBase(o){o=o||{};var leaf=o.leaf||'#4caf50',ls=o.wilt?'#a08a3c':'#2e7d32';var h='';
+ h+='<rect x="40" y="280" width="320" height="80" fill="#d7b98e" rx="6"/>';
+ h+='<line x1="200" y1="280" x2="200" y2="110" stroke="#3b7d2f" stroke-width="8" stroke-linecap="round"/>';
+ if(o.cut)h+='<line x1="182" y1="205" x2="218" y2="215" stroke="#c62828" stroke-width="5"/><text x="222" y="218" font-size="14" fill="#c62828">✂</text>';
+ var rot1=o.wilt?40:-25,rot2=o.wilt?-40:25;
+ h+='<ellipse cx="160" cy="175" rx="42" ry="16" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot1+' 198 182)"/>';
+ h+='<ellipse cx="240" cy="200" rx="42" ry="16" fill="'+leaf+'" stroke="'+ls+'" stroke-width="2" transform="rotate('+rot2+' 202 207)"/>';
+ var pc=o.wilt?'#c9a3b5':'#e75480';
+ for(var i=0;i<6;i++){var a=i*Math.PI/3;h+='<circle cx="'+(200+16*Math.cos(a)).toFixed(1)+'" cy="'+(98+16*Math.sin(a)).toFixed(1)+'" r="11" fill="'+pc+'"/>';}
+ h+='<circle cx="200" cy="98" r="9" fill="#f6d743"/>';
+ h+='<g stroke="#7a5230" stroke-width="5" stroke-linecap="round" fill="none"><line x1="200" y1="280" x2="200" y2="345"/><path d="M200 300 Q175 315 160 340"/><path d="M200 300 Q225 315 240 340"/><path d="M200 320 Q185 330 178 352"/><path d="M200 320 Q215 330 222 352"/></g>';
+ if(o.hairs!==false){h+='<g stroke="#7a5230" stroke-width="1.5">';var pts=[[160,340],[240,340],[178,352],[222,352],[200,345]];for(var k=0;k<pts.length;k++){var p=pts[k];h+='<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]-6)+'" y2="'+(p[1]+6)+'"/><line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+6)+'" y2="'+(p[1]+6)+'"/><line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+p[0]+'" y2="'+(p[1]+8)+'"/>';}h+='</g>';}
+ return h;}
+function num(n,x,y,tx,ty){return '<line x1="'+x+'" y1="'+y+'" x2="'+(tx-14)+'" y2="'+ty+'" stroke="#555" stroke-width="1.5"/><circle cx="'+tx+'" cy="'+ty+'" r="14" fill="#fff" stroke="#2e5d34" stroke-width="2"/><text x="'+tx+'" y="'+(ty+5)+'" text-anchor="middle" font-size="16" font-weight="700" fill="#2e5d34">'+n+'</text>';}
+function svgPlant(){return '<svg viewBox="0 0 440 370" width="420">'+plantBase()+num(1,214,98,380,90)+num(2,262,190,380,160)+num(3,204,250,380,240)+num(4,240,335,380,320)+'</svg>';}
+function svgSchema(){var id='mk'+(MK++),id2='mk'+(MK++),id3='mk'+(MK++);var h='<svg viewBox="0 0 520 370" width="500">'+arrowDef(id,'#1e88e5')+arrowDef(id2,'#e0a800')+arrowDef(id3,'#90caf9')+'<g transform="translate(60,0)">'+plantBase();
+ h+='<line x1="218" y1="335" x2="218" y2="150" stroke="#1e88e5" stroke-width="8" marker-end="url(#'+id+')"/>';
+ h+='<line x1="182" y1="150" x2="182" y2="335" stroke="#e0a800" stroke-width="8" marker-end="url(#'+id2+')"/>';
+ h+='<path d="M250 175 q10 -20 0 -40 q-10 -20 0 -40" stroke="#90caf9" stroke-width="4" fill="none" stroke-dasharray="6 4" marker-end="url(#'+id3+')"/>';
+ h+='</g><text x="330" y="70" font-size="15" fill="#1565c0">Verdunstung (Sog)</text>';
+ h+='<text x="290" y="300" font-size="15" font-weight="700" fill="#1565c0">Wasser +</text><text x="290" y="318" font-size="15" font-weight="700" fill="#1565c0">Mineralsalze ↑</text>';
+ h+='<text x="8" y="240" font-size="15" font-weight="700" fill="#b8860b">Zucker ↓</text><text x="8" y="258" font-size="13" fill="#b8860b">zu Wurzel, Blüte,</text><text x="8" y="274" font-size="13" fill="#b8860b">Früchten</text>';
+ return h+'</svg>';}
+function dots(path,col,n,dur){var h='';for(var i=0;i<n;i++)h+='<circle r="6" fill="'+col+'" stroke="#fff" stroke-width="1.5"><animateMotion dur="'+dur+'s" repeatCount="indefinite" begin="'+(i*dur/n).toFixed(2)+'s" path="'+path+'"/></circle>';return h;}
+function svgSim(s){var water=s.h&&s.s,sugar=water&&s.l;var h='<svg viewBox="0 0 440 370" width="420">';
+ h+='<rect x="0" y="0" width="440" height="280" fill="'+(s.l?'#fffbe6':'#3b4150')+'"/>';
+ h+=s.l?'<circle cx="390" cy="45" r="24" fill="#f6d743"/><g stroke="#f6d743" stroke-width="3">'+[0,1,2,3,4,5,6,7].map(function(i){var a=i*Math.PI/4;return '<line x1="'+(390+30*Math.cos(a)).toFixed(0)+'" y1="'+(45+30*Math.sin(a)).toFixed(0)+'" x2="'+(390+40*Math.cos(a)).toFixed(0)+'" y2="'+(45+40*Math.sin(a)).toFixed(0)+'"/>';}).join('')+'</g>':'<text x="370" y="55" font-size="30">🌙</text>';
+ h+=plantBase({hairs:!!s.h,cut:!s.s,wilt:s.run&&!water});
+ if(s.run){if(water)h+=dots('M194 345 L194 185','#1e88e5',5,2.6)+dots('M245 195 Q260 150 250 110','#90caf9',3,2.2);
+  else if(s.h)h+=dots('M194 345 L194 225','#1e88e5',3,2.2);
+  if(sugar)h+=dots('M206 180 L206 345','#e0a800',5,2.6);}
+ return h+'</svg>';}
+function svgDiagram(){var X=function(i){return 70+i*30;},Y=function(v){return 250-v*4.4;};
+ var ab=[4,8,20,34,42,38,22,10,5,4,4,4,4],au=[6,6,12,24,34,40,30,16,9,7,6,6,6],lab=[6,8,10,12,14,16,18,20,22,24,2,4,6];
+ var h='<svg viewBox="0 0 470 310" width="460"><rect x="70" y="30" width="360" height="220" fill="#fff"/>';
+ for(var v=0;v<=50;v+=10){h+='<line x1="70" y1="'+Y(v)+'" x2="430" y2="'+Y(v)+'" stroke="#e5e5e5"/><text x="62" y="'+(Y(v)+5)+'" font-size="12" text-anchor="end">'+v+'</text>';}
+ for(var i=0;i<13;i++)h+='<text x="'+X(i)+'" y="268" font-size="12" text-anchor="middle">'+lab[i]+'</text>';
+ h+='<line x1="70" y1="250" x2="434" y2="250" stroke="#333" stroke-width="2"/><line x1="70" y1="250" x2="70" y2="26" stroke="#333" stroke-width="2"/>';
+ h+='<text x="250" y="292" font-size="13" text-anchor="middle">Uhrzeit</text><text x="18" y="140" font-size="13" text-anchor="middle" transform="rotate(-90 18 140)">Wassermenge (mL pro Stunde)</text>';
+ var p1='',p2='';for(i=0;i<13;i++){p1+=X(i)+','+Y(ab[i])+' ';p2+=X(i)+','+Y(au[i])+' ';}
+ h+='<polyline points="'+p1+'" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="8 5"/><polyline points="'+p2+'" fill="none" stroke="#1e6fd9" stroke-width="3"/>';
+ h+='<line x1="300" y1="45" x2="330" y2="45" stroke="#c0392b" stroke-width="3" stroke-dasharray="8 5"/><text x="336" y="50" font-size="13">Wasserabgabe</text><line x1="300" y1="65" x2="330" y2="65" stroke="#1e6fd9" stroke-width="3"/><text x="336" y="70" font-size="13">Wasseraufnahme</text>';
+ return h+'</svg>';}
+function svgZyl(){var lv=[0,3,15,35];var h='<svg viewBox="0 0 460 300" width="440">';
+ for(var i=0;i<4;i++){var x=40+i*105,top=110,bot=260,wl=130+lv[i];
+  h+='<rect x="'+x+'" y="'+wl+'" width="60" height="'+(bot-wl)+'" fill="#bbdefb"/><rect x="'+x+'" y="'+(wl-6)+'" width="60" height="6" fill="#f6d743"/>';
+  h+='<line x1="'+(x-6)+'" y1="130" x2="'+(x+66)+'" y2="130" stroke="#555" stroke-dasharray="4 3"/>';
+  h+='<rect x="'+x+'" y="'+top+'" width="60" height="'+(bot-top)+'" fill="none" stroke="#555" stroke-width="2.5"/>';
+  if(i>0){h+='<line x1="'+(x+30)+'" y1="240" x2="'+(x+30)+'" y2="40" stroke="#6d4c2f" stroke-width="5"/>';
+   var nl=i===1?0:(i===2?2:6);for(var k=0;k<nl;k++){var yy=50+k*11,side=k%2?1:-1;h+='<ellipse cx="'+(x+30+side*18)+'" cy="'+yy+'" rx="17" ry="7" fill="#4caf50" stroke="#2e7d32" transform="rotate('+(side*-25)+' '+(x+30)+' '+yy+')"/>';}}
+  h+='<text x="'+(x+30)+'" y="285" font-size="18" font-weight="700" text-anchor="middle">'+(i+1)+'</text>';}
+ h+='<text x="452" y="134" font-size="11" text-anchor="end">Start</text>';
+ return h+'<text x="10" y="20" font-size="12" fill="#555">gelb = Ölschicht, gestrichelt = Wasserstand am Anfang</text></svg>';}
+function sprossGeom(light,grown){var rows=6,base=22,L,R;if(!grown){L=R=base;}else if(light==='oben'){L=R=34;}else if(light==='rechts'){L=37;R=31;}else{L=31;R=37;}
+ var cx=200,cy=330,a=0,w=40,polys=[],lp=[],rp=[];function lv(a){return [-Math.cos(a),-Math.sin(a)];}
+ var l0=lv(a);lp.push([cx+l0[0]*w/2,cy+l0[1]*w/2]);rp.push([cx-l0[0]*w/2,cy-l0[1]*w/2]);
+ for(var i=0;i<rows;i++){var da=(L-R)/w,am=a+da/2,d=[Math.sin(am),-Math.cos(am)],m=(L+R)/2;var c2=[cx+d[0]*m,cy+d[1]*m];var lo=lv(a),ln=lv(a+da);
+  var bl=[cx+lo[0]*w/2,cy+lo[1]*w/2],br=[cx-lo[0]*w/2,cy-lo[1]*w/2],tl=[c2[0]+ln[0]*w/2,c2[1]+ln[1]*w/2],tr=[c2[0]-ln[0]*w/2,c2[1]-ln[1]*w/2];
+  polys.push([bl,br,tr,tl]);lp.push(tl);rp.push(tr);cx=c2[0];cy=c2[1];a=a+da;}
+ return {polys:polys,lp:lp,rp:rp,tip:[cx,cy],a:a,L:L*rows,R:R*rows};}
+function sun(x,y){var h='<circle cx="'+x+'" cy="'+y+'" r="18" fill="#f6d743"/><g stroke="#f6d743" stroke-width="3">';for(var i=0;i<8;i++){var a=i*Math.PI/4;h+='<line x1="'+(x+23*Math.cos(a)).toFixed(0)+'" y1="'+(y+23*Math.sin(a)).toFixed(0)+'" x2="'+(x+31*Math.cos(a)).toFixed(0)+'" y2="'+(y+31*Math.sin(a)).toFixed(0)+'"/>';}return h+'</g>';}
+function pl(pts){return pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');}
+function svgSpross(light,grown){var g=sproussSafe(light,grown);var h='<svg viewBox="0 0 400 420" width="380"><rect x="0" y="330" width="400" height="20" fill="#d7b98e"/>';
+ h+=light==='oben'?sun(200,40):(light==='rechts'?sun(360,90):sun(40,90));
+ for(var i=0;i<g.polys.length;i++)h+='<polygon points="'+pl(g.polys[i])+'" fill="#8bc34a" stroke="#558b2f" stroke-width="1"/>';
+ h+='<polyline points="'+pl(g.lp)+'" fill="none" stroke="#1f5fbf" stroke-width="4"/><polyline points="'+pl(g.rp)+'" fill="none" stroke="#e07a00" stroke-width="4"/>';
+ h+='<circle cx="'+g.tip[0].toFixed(1)+'" cy="'+g.tip[1].toFixed(1)+'" r="17" fill="#1b5e20"/>';
+ var k=1.25;h+='<text x="20" y="372" font-size="13">linke Seite</text><rect x="110" y="362" width="'+(g.L*k)+'" height="10" fill="#1f5fbf"/>';
+ h+='<text x="20" y="397" font-size="13">rechte Seite</text><rect x="110" y="387" width="'+(g.R*k)+'" height="10" fill="#e07a00"/>';
+ return h+'</svg>';}
+function sproussSafe(l,g){return sprossGeom(l,g);}
+function svgAux(st){var v=st&&st.v?st.v:{};var W={'wenig':3,'mittel':7,'viel':13},H={'kurze Zellen':16,'mittlere Zellen':26,'gestreckte Zellen':40};
+ var id='mk'+(MK++);var h='<svg viewBox="0 0 460 300" width="440">'+arrowDef(id,'#d32f2f');
+ function stem(x,lbl,rowA,rowB,sunX,sunY){var s='<text x="'+(x+40)+'" y="292" text-anchor="middle" font-size="16" font-weight="700">'+lbl+'</text>'+sun(sunX,sunY);
+  s+='<rect x="'+x+'" y="80" width="80" height="190" rx="10" fill="#c5e1a5" stroke="#558b2f"/><circle cx="'+(x+40)+'" cy="88" r="16" fill="#1b5e20"/>';
+  var sides=[[rowA,x+20],[rowB,x+60]];for(var j=0;j<2;j++){var r=sides[j][0],sx=sides[j][1];var tw=v[r+'_0'],ce=v[r+'_1'];
+   if(tw)s+='<line x1="'+sx+'" y1="110" x2="'+sx+'" y2="185" stroke="#d32f2f" stroke-width="'+W[tw]+'" marker-end="url(#'+id+')"/>';else s+='<text x="'+sx+'" y="150" text-anchor="middle" font-size="22" fill="#999">?</text>';
+   if(ce){var hh=H[ce];s+='<rect x="'+(sx-13)+'" y="'+(258-hh)+'" width="26" height="'+hh+'" fill="#fff" stroke="#333"/>';}else s+='<rect x="'+(sx-13)+'" y="232" width="26" height="26" fill="none" stroke="#bbb" stroke-dasharray="3 3"/>';}
+  return s;}
+ h+=stem(70,'A',0,1,110,30)+stem(290,'B',2,3,420,60);
+ return h+'</svg>';}
+function svgLab(){return '<svg viewBox="0 0 420 240" width="400"><rect x="20" y="20" width="380" height="200" fill="#efe3cf" stroke="#7a5a2e" stroke-width="4"/>'+
+ '<rect x="140" y="20" width="10" height="130" fill="#b08a55"/><rect x="270" y="90" width="10" height="130" fill="#b08a55"/>'+
+ '<circle cx="70" cy="180" r="26" fill="#c96a3a"/><text x="70" y="186" text-anchor="middle" font-size="14" fill="#fff">Topf</text>'+
+ '<circle cx="355" cy="50" r="16" fill="#fffbe6" stroke="#e0a800" stroke-width="3"/><text x="355" y="85" text-anchor="middle" font-size="13">Loch (Licht)</text>'+
+ '<text x="210" y="236" text-anchor="middle" font-size="12" fill="#555">Schuhkarton von oben gesehen, Pappwände braun</text></svg>';}
+var LR=[['🏜️ Wüste','heiß, trocken, viel Sonne, kaum Regen'],['🌲 Dunkler Wald','unter hohen Bäumen, kaum Licht'],['🏙️ Hochhausdach','starker Wind, nur wenig Erde'],['🐸 Teich','die Pflanze steht im Wasser'],['🏔️ Hochgebirge','kalt, steinig, starker Wind'],['🌊 Salzige Küste','sandiger Boden, Wellen, Salzwasser']];
+var STEPS=[
+/* ===== KAPITEL 1 ===== */
+{n:'Start',ch:1,m:3,h:function(){return '<h2>Willkommen! 🌱</h2><p>Dein Lehrer ist die nächsten beiden Doppelstunden nicht da. Mit diesem Lernpfad arbeitest du selbstständig weiter. Dein Fortschritt wird automatisch auf diesem Gerät gespeichert.</p>'+
+ '<div class="info"><b>So arbeitest du:</b><ul><li><b>Kapitel 1 (Doppelstunde 1):</b> Die Pflanze als Organismus</li><li><b>Kapitel 2 (Doppelstunde 2):</b> Reizbarkeit von Pflanzen</li><li><b>⭐ Zusatz:</b> für alle, die früher fertig sind</li><li>Wenn du dich sicher fühlst: <b>mebis-Test</b> am Ende</li></ul>Alles mit 📓 schreibst du ins Heft ab. Fachwörter findest du oben im 📖 Wortspeicher.</div>'+
+ '<div class="task"><b>Deine Lernziele:</b><ul><li>Ich kann die Grundorgane einer Samenpflanze benennen und ihre Aufgaben beschreiben.</li><li>Ich kann beschreiben, wie Wasser und Zucker in der Pflanze transportiert werden.</li><li>Ich kann ein Diagramm und einen Versuch zum Wassertransport auswerten.</li><li>Ich kann erklären, auf welche Reize Pflanzen reagieren und welche Bedeutung das hat.</li><li>Ich kann erklären, warum ein Spross zum Licht wächst (Fototropismus).</li></ul></div>'+
+ check('start','Ich habe Heft, Stift und Buntstifte (blau, gelb, grün) bereitgelegt.');},g:function(){return S.ck.start;}},
+{n:'Lebensaufgaben',ch:1,m:5,h:function(){return '<h2>Was jedes Lebewesen können muss</h2><div class="info">Jedes Lebewesen muss bestimmte Aufgaben meistern, um zu überleben. Der Mensch braucht Nährstoffe (dafür hat er den Verdauungsapparat), nimmt Reize wahr (Sinnesorgane, Nervensystem), braucht Stabilität (Knochen) und pflanzt sich fort (Fortpflanzungsorgane).<br><br><b>Auch Pflanzen müssen diese Lebensaufgaben meistern</b>, aber mit ganz anderen Organen.</div><div class="task">Überlege kurz: Welche Aufgaben hat eine Pflanze und welche Teile der Pflanze übernehmen sie? Danach beantworte die Frage.</div>'+quiz('q_naehr');},g:function(){return answered(['q_naehr']);}},
+{n:'Organe und ihre Aufgaben',ch:1,m:7,h:function(){return '<h2>Der Grundbauplan einer Samenpflanze</h2>'+svgPlant()+
+ '<div class="info">Die meisten Pflanzen haben den gleichen Grundbauplan aus <b>Wurzel</b>, <b>Sprossachse</b> und <b>Blättern</b>. Dazu kommen Blüten, Früchte und Samen.<ul>'+
+ '<li><b>Wurzel:</b> Sie verankert die Pflanze im Boden. Über die feinen <b>Wurzelhaare</b> nimmt sie Wasser mit darin gelösten Mineralsalzen auf. Manche Wurzeln speichern Nährstoffe, z. B. die Karotte.</li>'+
+ '<li><b>Sprossachse</b> (Stängel, bei Bäumen der Stamm): Sie trägt Blätter und Blüten und hebt die Blätter zum Licht. In ihr liegen Leitelemente, die Stoffe transportieren.</li>'+
+ '<li><b>Blatt:</b> Jedes grüne Blatt ist eine „Nährstofffabrik“. Mit Licht stellt es durch Fotosynthese Zucker her.</li>'+
+ '<li><b>Blüte:</b> Sie dient der Fortpflanzung. Nach der Bestäubung entstehen Frucht und Samen.</li></ul>Sprossachse und Blätter zusammen nennt man <b>Spross</b>.</div>'+
+ '<div class="task"><b>Beschrifte:</b> Welches Organ hat welche Nummer?</div>'+game('g_label');},g:function(){return gameDone('g_label');}},
+{n:'Frage: Aufgaben der Organe',ch:1,m:5,h:function(){return '<h2>Frage: Wer macht was?</h2>'+quiz('q_wurzel')+quiz('q_spross')+quiz('q_blatt')+quiz('q_bluete');},g:function(){return answered(['q_wurzel','q_spross','q_blatt','q_bluete']);}},
+{n:'Was hast du gegessen?',ch:1,m:8,h:function(){return '<h2>Was hast du heute gegessen? 🍽️</h2><div class="info">Wir essen jeden Tag Pflanzenorgane, meistens ohne es zu merken. Ordne zu, welchen Pflanzenteil man jeweils isst. Vorsicht, es sind Fallen dabei!</div>'+game('g_essen')+(gameDone('g_essen')?'<div class="task">Überrascht? Die Kartoffel ist <b>keine Wurzel</b>, sondern ein verdickter Spross (Sprossknolle). Woran man das sieht: An den „Augen“ sitzen Knospen, aus denen neue Triebe wachsen.</div>':'');},g:function(){return gameDone('g_essen');}},
+{n:'Wasser hoch, Zucker runter',ch:1,m:6,h:function(){return '<h2>Das Zusammenspiel der Organe</h2>'+svgSchema()+
+ '<div class="info"><ul><li>An den Blättern <b>verdunstet</b> ständig Wasser. Dadurch entsteht ein <b>Sog</b>, ähnlich wie beim Trinken mit einem Strohhalm.</li><li>Dieser Sog zieht Wasser aus dem Boden in die Wurzelhaare und durch die Leitelemente der Sprossachse <b>nach oben</b> in die Blätter. Mit dem Wasser kommen die Mineralsalze mit.</li><li>In den Blättern entsteht durch Fotosynthese <b>Zucker</b>. Er wird in die <b>Gegenrichtung</b> zu den nicht grünen Teilen geleitet: Wurzel, Blüten und Früchte. Auch sie brauchen Energie, die sie über die Zellatmung aus dem Zucker gewinnen.</li></ul></div>';},g:function(){return true;}},
+{n:'Frage: Transport',ch:1,m:4,h:function(){return '<h2>Frage: Transport in der Pflanze</h2>'+quiz('q_tr1')+quiz('q_tr2')+quiz('q_tr3');},g:function(){return answered(['q_tr1','q_tr2','q_tr3']);}},
+{n:'Simulation: Pflanze in Not',ch:1,m:12,h:function(){var s=S.sim;var water=s.h&&s.s,sugar=water&&s.l;
+ var h='<h2>Simulation: Was passiert bei einer Störung? 🔬</h2><div class="info">Schalte eine Störung ein und drücke „▶ Tag starten“. Beobachte die <span style="color:#1e88e5"><b>blauen Wasserteilchen</b></span> und die <span style="color:#b8860b"><b>gelben Zuckerteilchen</b></span>. Probiere <b>jede der drei Störungen einzeln</b> aus.</div>';
+ h+='<div><button class="btn '+(s.l?'':'on')+'" data-sim="l">'+(s.l?'💡 Licht ausschalten':'🌙 Licht ist aus (wieder an)')+'</button><button class="btn '+(s.h?'':'on')+'" data-sim="h">'+(s.h?'🌿 Wurzelhaare entfernen':'Wurzelhaare fehlen (zurück)')+'</button><button class="btn '+(s.s?'':'on')+'" data-sim="s">'+(s.s?'✂️ Spross durchtrennen':'Spross ist durchtrennt (heilen)')+'</button></div>';
+ h+='<button class="btn" data-sim="run" style="background:#1e6fd9">▶ Tag starten</button>'+svgSim(s);
+ if(s.run)h+='<div class="stat"><div>Wasser kommt im Blatt an: <b>'+(water?'ja ✅':'nein ❌')+'</b></div><div>Zucker entsteht im Blatt: <b>'+(sugar?'ja ✅':'nein ❌')+'</b></div><div>Wurzel und Blüte bekommen Zucker: <b>'+(sugar?'ja ✅':'nein ❌')+'</b></div></div>'+(water?'':'<div class="fb no">Die Pflanze welkt, weil kein Wasser oben ankommt.</div>');
+ var t=s.tried||{};h+='<div class="small">Ausprobiert: '+(t.l?'✅':'⬜')+' Licht aus · '+(t.h?'✅':'⬜')+' Wurzelhaare weg · '+(t.s?'✅':'⬜')+' Spross durchtrennt</div>';
+ if(t.l&&t.h&&t.s)h+='<h3>Was hast du beobachtet?</h3>'+quiz('q_sim1')+quiz('q_sim2')+quiz('q_sim3');
+ return h;},g:function(){var t=S.sim.tried||{};return t.l&&t.h&&t.s&&answered(['q_sim1','q_sim2','q_sim3']);}},
+{n:'Kurzcheck 1',ch:1,m:4,h:function(){return '<h2>Kurzcheck ✔️</h2>'+quiz('q_kc1')+quiz('q_kc2')+ampel('a1');},g:function(){return answered(['q_kc1','q_kc2'])&&S.amp.a1;}},
+{n:'Hefteintrag 3',ch:1,m:12,h:function(){return '<h2>Hefteintrag 3</h2>'+heftBox('3. Organe des Pflanzenkörpers und ihre Aufgaben',
+ '<table><tr><th>Organ</th><th>Aufgabe</th></tr><tr><td>Wurzel</td><td>verankert die Pflanze, nimmt über Wurzelhaare Wasser mit Mineralsalzen auf</td></tr><tr><td>Sprossachse</td><td>trägt Blätter und Blüten, leitet Wasser nach oben und Zucker nach unten</td></tr><tr><td>Blatt</td><td>stellt durch Fotosynthese Zucker her; Wasser verdunstet und erzeugt einen Sog</td></tr><tr><td>Blüte</td><td>Fortpflanzung (Frucht und Samen)</td></tr></table>'+
+ '<p style="margin:10px 0 4px"><b>Zeichne darunter das Schema ab</b> (ca. eine halbe Seite): Pflanze aus Strichen und Ovalen, <span style="color:#1e88e5"><b>blauer Pfeil</b></span> nach oben = Wasser und Mineralsalze, <span style="color:#b8860b"><b>gelber Pfeil</b></span> nach unten = Zucker zu Wurzel, Blüte und Früchten.</p>'+svgSchema())+check('h3','Ich habe Hefteintrag 3 mit Schema ordentlich abgeschrieben.');},g:function(){return S.ck.h3;}},
+{n:'Diagramm und Versuch',ch:1,m:7,h:function(){return '<h2>Diagramm: Wasser über den Tag</h2><div class="info">Forscher haben an einem Sommertag gemessen, wie viel Wasser eine Pflanze pro Stunde aufnimmt und abgibt (verdunstet).</div>'+svgDiagram()+quiz('q_dia1')+quiz('q_dia2')+quiz('q_dia3');},g:function(){return answered(['q_dia1','q_dia2','q_dia3']);}},
+{n:'Versuch: Messzylinder',ch:1,m:9,h:function(){return '<h2>Versuch: Welche Rolle spielen die Blätter?</h2><div class="info">In vier Messzylindern steht gleich viel Wasser. Auf das Wasser wurde vorsichtig eine dünne Schicht <b>Öl</b> getropft.<br>1: ohne Pflanze · 2: Zweig ohne Blätter · 3: Zweig mit wenigen Blättern · 4: Zweig mit vielen Blättern.<br>Die Abbildung zeigt die Wasserstände nach drei Tagen.</div>'+svgZyl()+quiz('q_v1')+quiz('q_v2')+quiz('q_v3')+quiz('q_v4');},g:function(){return answered(['q_v1','q_v2','q_v3','q_v4']);}},
+{n:'Erfinde eine Pflanze',ch:1,m:15,h:function(){var h='<h2>Erfinde eine Pflanze! 🎨</h2><div class="info">Pflanzen sind an ihren Lebensraum angepasst. Der Kaktus speichert zum Beispiel Wasser in seinem dicken Spross. Jetzt erfindest du selbst eine Pflanze.</div>';
+ if(S.lr===null||S.lr===undefined)h+='<button class="btn" data-lr="1">🎲 Lebensraum auslosen</button>';
+ else{var l=LR[S.lr];h+='<div>Dein Lebensraum:</div><div class="lr">'+l[0]+'</div><div class="small">'+l[1]+'</div>'+
+  '<div class="task"><b>Aufgabe:</b><ol><li>Zeichne deine Pflanze ins Heft (höchstens 10 Minuten) und gib ihr einen Namen.</li><li>Beschrifte Wurzel, Sprossachse, Blatt und Blüte.</li><li>Schreibe hier für <b>jedes der vier Organe eine Anpassung</b> an deinen Lebensraum auf und begründe sie mit „weil …“.</li></ol></div>'+
+  check('zeich','Meine Pflanze ist im Heft gezeichnet und beschriftet.')+txt('t_erf',200,'Beispiel Wüste („Durstkugel“): <b>Wurzel:</b> sehr lang und weit verzweigt, weil sie so auch tief im Boden noch Wasser findet. <b>Sprossachse:</b> dick, weil sie Wasser für lange Trockenzeiten speichert. <b>Blatt:</b> sehr klein oder als Dornen, weil über kleine Blätter weniger Wasser verdunstet. <b>Blüte:</b> blüht nur kurz nach einem Regen, weil dann Insekten unterwegs sind und die Samen keimen können.');}
+ return h;},g:function(){return S.lr!==null&&S.lr!==undefined&&S.ck.zeich&&txtOk('t_erf',200);}},
+{n:'Kapitel 1 geschafft',ch:1,m:1,h:function(){return '<h2>🏁 Kapitel 1 geschafft!</h2><p>Super! Du kennst jetzt die Organe der Pflanze und weißt, wie Wasser und Zucker transportiert werden.</p><div class="info">Ist von der Doppelstunde noch Zeit übrig? Dann mach direkt mit <b>Kapitel 2</b> weiter. Sonst geht es nächstes Mal hier weiter, dein Fortschritt ist gespeichert.</div>';},g:function(){return true;}},
+/* ===== KAPITEL 2 ===== */
+{n:'Lebt die Falle?',ch:2,m:5,h:function(){return '<h2>Kapitel 2: Pflanzen reagieren auf ihre Umwelt</h2><div class="big">🪰 ➜ 🌿</div><div class="info">Die <b>Venusfliegenfalle</b> hat Fangblätter. Auf der Innenseite sitzen je drei feine Fühlborsten. Berührt eine Fliege zweimal eine Borste, klappt die Falle in Sekundenbruchteilen zu. Danach wird die Fliege verdaut. So bekommt die Pflanze Mineralsalze, die in ihrem Moorboden fehlen.</div><div class="task">Erinnere dich an die <b>Kennzeichen des Lebens</b>: besteht aus Zellen, Stoffwechsel, Reizbarkeit, Bewegung, Fortpflanzung, Wachstum.</div>'+quiz('q_leben');},g:function(){return answered(['q_leben']);}},
+{n:'Reize aus der Umwelt',ch:2,m:5,h:function(){return '<h2>Reize: Informationen aus der Umwelt</h2><div class="info"><ul><li>Auch Pflanzen zeigen <b>Reizbarkeit</b>: Sie nehmen Informationen aus der Umwelt als <b>Reize</b> auf und reagieren darauf.</li><li>Solche Reize sind: <b>Licht, Wärme, Schwerkraft, Berührung</b> und <b>chemische Stoffe</b>.</li><li>Pflanzen haben keine Sinnesorgane wie der Mensch. Stattdessen nehmen <b>spezialisierte Zellen</b> in bestimmten Bereichen der Pflanze die Reize auf.</li><li>Pflanzen können nicht weglaufen. Sie reagieren meist <b>langsam durch Wachstum</b> in eine bestimmte Richtung. Manche zeigen auch schnelle Bewegungen, wie die Venusfliegenfalle.</li><li>Die Reaktionen haben eine <b>Bedeutung</b> für die <b>Ernährung</b>, die <b>Fortpflanzung</b> oder den <b>Schutz</b> der Pflanze.</li></ul></div>';},g:function(){return true;}},
+{n:'Frage: Reize',ch:2,m:3,h:function(){return '<h2>Frage: Reize</h2>'+quiz('q_rz1')+quiz('q_rz2');},g:function(){return answered(['q_rz1','q_rz2']);}},
+{n:'Reiz und Bedeutung',ch:2,m:12,h:function(){return '<h2>Reiz und Bedeutung zuordnen 🧩</h2><div class="info">Hier siehst du acht Bewegungen von Pflanzen. Ordne jeder Bewegung den <b>Reiz</b> zu, auf den sie reagiert, und die <b>Bedeutung</b>, die die Reaktion für die Pflanze hat. <br><span class="small">Lies dazu, falls vorhanden, im Buch S. 52/53.</span></div>'+game('g_reiz');},g:function(){return gameDone('g_reiz');}},
+{n:'Kurzcheck 2',ch:2,m:3,h:function(){return '<h2>Kurzcheck ✔️</h2>'+quiz('q_rz3')+ampel('a2');},g:function(){return answered(['q_rz3'])&&S.amp.a2;}},
+{n:'Hefteintrag 4',ch:2,m:10,h:function(){return '<h2>Hefteintrag 4</h2>'+heftBox('4. Pflanzen nehmen ihre Umgebung wahr',
+ '<ul style="margin:4px 0"><li>Pflanzen nehmen mit <b>spezialisierten Zellen</b> Reize auf und reagieren darauf (<b>Reizbarkeit</b>).</li><li>Reize: Licht, Wärme, Schwerkraft, Berührung, chemische Stoffe</li><li>Reaktion meist langsam durch Wachstum, selten schnell (Venusfliegenfalle)</li></ul>'+
+ '<table><tr><th>Bewegung</th><th>Reiz</th><th>Bedeutung für</th></tr><tr><td>Fangblatt klappt zu</td><td>Berührung</td><td>Ernährung</td></tr><tr><td>Spross wächst zum Licht</td><td>Licht</td><td>Ernährung</td></tr><tr><td>Tulpe öffnet die Blüte</td><td>Wärme</td><td>Fortpflanzung</td></tr><tr><td>Mimose klappt Blätter zusammen</td><td>Berührung</td><td>Schutz</td></tr></table>')+check('h4','Ich habe Hefteintrag 4 abgeschrieben.');},g:function(){return S.ck.h4;}},
+{n:'Fototropismus',ch:2,m:4,h:function(){return '<h2>Warum schauen Sonnenblumen zur Sonne? 🌻</h2><div class="info">Auf einem Sonnenblumenfeld zeigen die Blüten morgens nach Osten, mittags nach Süden und abends nach Westen. Eine Zimmerpflanze auf der Fensterbank krümmt sich mit der Zeit zum Fenster.<br><br>Diese durch Licht ausgelöste Wachstumsbewegung heißt <b>Fototropismus</b> (griechisch: <i>photos</i> = Licht, <i>tropos</i> = Wendung).</div>'+quiz('q_ft1')+quiz('q_ft2');},g:function(){return answered(['q_ft1','q_ft2']);}},
+{n:'Spiel 1: Spross beobachten',ch:2,m:12,h:function(){var p=S.sp;var h='<h2>Spiel 1: Lass den Spross wachsen 🌱</h2><div class="info">Der Spross besteht aus Zellen. Die <span style="color:#1f5fbf"><b>linke Seite ist blau</b></span>, die <span style="color:#e07a00"><b>rechte Seite orange</b></span> markiert, die Spitze ist dunkelgrün. Unten zeigen zwei Balken, wie lang die beiden Seiten sind (wie die Wollfäden beim Modell).<br><b>Probiere aus:</b> Licht von oben und Licht von rechts, jeweils „Wachsen lassen“.</div>';
+ h+='<div>Licht kommt von: <button class="btn '+(p.light==='oben'?'on':'sec')+'" data-sp="oben">⬇️ oben (A)</button><button class="btn '+(p.light==='rechts'?'on':'sec')+'" data-sp="rechts">⬅️ rechts (B)</button><button class="btn '+(p.light==='links'?'on':'sec')+'" data-sp="links">➡️ links</button></div>';
+ h+='<button class="btn" data-sp="grow" style="background:#1e6fd9">🌱 Wachsen lassen</button> <button class="btn sec" data-sp="reset">↩️ zurücksetzen</button>'+svgSpross(p.light,p.grown);
+ var sn=p.seen||{};h+='<div class="small">Beobachtet: '+(sn.oben?'✅':'⬜')+' Licht von oben · '+(sn.rechts?'✅':'⬜')+' Licht von rechts</div>';
+ if(sn.oben&&sn.rechts)h+='<h3>Fülle die Tabelle aus</h3><div class="task">Diese Tabelle findest du auch auf deinem Arbeitsblatt. Fülle sie zuerst hier aus.</div>'+game('g_tab');
+ return h;},g:function(){var sn=S.sp.seen||{};return sn.oben&&sn.rechts&&gameDone('g_tab');}},
+{n:'Wie entsteht die Krümmung?',ch:2,m:5,h:function(){return '<h2>Wie reagiert der Spross auf den Lichteinfall?</h2><div class="info"><ul><li><b>Spezialisierte Zellen in der Sprossspitze</b> nehmen den Lichtreiz wahr. Sie bilden den Botenstoff <b>Auxin</b>.</li><li>Das Auxin wird von der Spitze nach unten in den Spross transportiert.</li><li>Auxin bewirkt, dass sich Zellen <b>strecken</b>: Zellen mit viel Auxin werden länger als Zellen mit wenig Auxin.</li><li><b>Licht von oben:</b> Auf beiden Seiten kommt gleich viel Auxin an. Beide Seiten wachsen gleich stark, der Spross wächst gerade.</li><li><b>Licht von der Seite:</b> Auf der <b>Schattenseite</b> kommt <b>mehr</b> Auxin an, auf der <b>Lichtseite weniger</b>. Die Zellen der Schattenseite strecken sich stärker. Der Spross <b>krümmt sich zum Licht</b>.</li></ul></div>'+quiz('q_ft3')+quiz('q_ft4');},g:function(){return answered(['q_ft3','q_ft4']);}},
+{n:'Spiel 2: Auxin-Kärtchen',ch:2,m:10,h:function(){return '<h2>Spiel 2: Lege die Auxin-Kärtchen 🃏</h2><div class="info">Lege für beide Sprosse fest, wie viel Auxin auf jeder Seite transportiert wird (roter Pfeil: dünn = wenig, dick = viel) und welche Zellen dadurch entstehen. Die Grafik zeigt sofort, was du gelegt hast.</div>'+svgAux(S.game.g_aux)+game('g_aux');},g:function(){return gameDone('g_aux');}},
+{n:'Arbeitsblatt (Hefteintrag 4.1)',ch:2,m:12,h:function(){var h='<h2>Arbeitsblatt „Wie reagieren Pflanzen auf Licht?“ 📄</h2><div class="task"><b>Hol dir das Arbeitsblatt</b> bei der Lehrkraft und klebe es als <b>Hefteintrag 4.1</b> ins Heft.<ol><li>Schreibe in die Zeilen oben eine Erklärung, was Fototropismus ist (mit Wortherkunft).</li><li>Zeichne in Abbildung 2 die linke Sprossseite blau, die rechte orange und die Spitze schwarz ein.</li><li>Fülle links die Tabelle aus (wie in Spiel 1).</li><li>Fülle rechts die Tabelle zur Abbildung 3 aus (Nr. 1 bis 7, wie in Spiel 2).</li></ol></div>'+check('ab','Ich habe das Arbeitsblatt vollständig ausgefüllt und eingeklebt.');
+ if(S.ck.ab)h+='<div class="sample"><b>Lösung zum Vergleichen</b> (verbessere mit grünem Stift):<br><b>Oben:</b> Fototropismus ist eine durch Licht ausgelöste Wachstumsbewegung. photos = Licht, tropos = Wendung.<br><b>Tabelle links:</b> Lichteinfall: A gleichmäßig, B ungleichmäßig · linke Sprossseite: A gleich lang, B länger · rechte Sprossseite: A gleich lang, B kürzer.<br><b>Tabelle rechts:</b> 1 auxinproduzierende Zellen (Sprossspitze) · 2 mittel · 3 viel · 4 wenig · 5 mittlere Zellen · 6 gestreckte (lange) Zellen · 7 kurze Zellen</div>'+check('abk','Ich habe mein Arbeitsblatt mit der Lösung verglichen und verbessert.');
+ return h;},g:function(){return S.ck.ab&&S.ck.abk;}},
+{n:'Kurzcheck 3',ch:2,m:3,h:function(){return '<h2>Kurzcheck ✔️</h2>'+quiz('q_kc4')+ampel('a3');},g:function(){return answered(['q_kc4'])&&S.amp.a3;}},
+{n:'Auswertung',ch:2,m:5,h:function(){var secs={},k;for(k in Q){var q=Q[k];if(q.sec==='z')continue;if(!secs[q.sec])secs[q.sec]={r:0,n:0};secs[q.sec].n++;if(S.ans[k]===q.c)secs[q.sec].r++;}
+ var tot=0,tr=0,worst=null,wv=2;var h='<h2>Deine Auswertung 📊</h2><table class="tbl"><tr><th>Thema</th><th>richtig</th><th></th></tr>';
+ for(k in NACHLESEN){var s=secs[k];if(!s)continue;tot+=s.n;tr+=s.r;var v=s.r/s.n;if(v<wv){wv=v;worst=k;}
+  h+='<tr><td>'+NACHLESEN[k]+'</td><td>'+s.r+' von '+s.n+'</td><td>'+(v<1?'<button class="btn sec" data-jump="'+k+'">🔎 Zum Nachlesen</button>':'✅')+'</td></tr>';}
+ h+='</table><p><b>Gesamt: '+tr+' von '+tot+' Fragen beim ersten Versuch richtig.</b></p>';
+ if(worst&&wv<1)h+='<div class="fb no">Am meisten Übung brauchst du noch bei: <b>'+NACHLESEN[worst]+'</b>. Lies dort noch einmal nach, bevor du den mebis-Test machst.</div>';else h+='<div class="fb ok">Stark, alles richtig!</div>';
+ var am={g:0,y:0,r:0};['a1','a2','a3'].forEach(function(x){if(S.amp[x])am[S.amp[x]]++;});h+='<div class="small">Deine Selbsteinschätzung: 🟢 '+am.g+' · 🟡 '+am.y+' · 🔴 '+am.r+'</div>';return h;},g:function(){return true;}},
+{n:'Ziel: mebis-Test',ch:2,m:12,h:function(){return '<h2>🎯 Geschafft!</h2><div class="info">Wenn du dich sicher fühlst, mach jetzt den <b>mebis-Test</b>:<br>mebis öffnen → Kurs <b>Natur und Technik</b> → Test <b>„Pflanze als Organismus und Reizbarkeit“</b>.<br>Du kannst ihn nur einmal abgeben. Schau vorher noch einmal in deine Hefteinträge 3, 4 und 4.1.</div>'+check('test','Ich habe den mebis-Test abgegeben.')+'<div class="task">Danach geht es mit den ⭐ <b>Zusatzaufgaben</b> weiter.</div>';},g:function(){return S.ck.test;}},
+/* ===== ZUSATZ ===== */
+{n:'Zusatz: Labyrinth',ch:3,m:15,h:function(){return '<h2>Entkommen Pflanzen dem Labyrinth?</h2><div class="info">In einem Schuhkarton stehen zwei Pappwände. In einer Ecke steht ein Topf mit Bohnensämlingen, in der gegenüberliegenden Ecke ist ein kleines Loch im Deckel. Sonst ist der Karton dunkel. Die Erde wird jeden Tag gegossen.</div>'+svgLab()+quiz('z_lab')+
+ '<div class="task"><b>Skizzen ins Heft:</b> Zeichne vier kleine Skizzen des Kartons: Wie weit sind die Bohnen am <b>1., 3., 5. und 7. Tag</b> gewachsen?</div>'+check('zlab','Meine vier Skizzen sind fertig.')+'<h3>Richtig oder falsch?</h3>'+game('g_lab')+'<div class="task"><b>Beschreibe</b> die biologische Bedeutung dieser Reaktion für die Pflanze.</div>'+txt('t_lab',120,'Die Bohnen wachsen zum Loch, weil nur dort Licht hereinkommt (Fototropismus). Für die Pflanze ist das wichtig, weil sie Licht für die Fotosynthese braucht. Nur mit Licht kann sie Zucker herstellen und überleben.');},g:function(){return true;}},
+{n:'Zusatz: Wo sitzt der Lichtsensor?',ch:3,m:15,h:function(){return '<h2>Versuch: Welche Bedeutung hat die Keimspitze?</h2><div class="info">Haferkeimlinge (ca. 3 cm) werden in einen dunklen Karton gestellt, der nur an einer Seite ein Loch hat. Vorher werden sie so behandelt:<br><b>a)</b> Ein schwarzes Tütchen sitzt auf der Spitze.<br><b>b)</b> Die Spitze (3 mm) wird abgeschnitten.<br><b>c)</b> Ein schwarzes Röhrchen bedeckt den Stängel, die Spitze bleibt frei.<br><b>d)</b> Keine Behandlung.<br><br>Sage voraus, was nach 5 bis 6 Stunden passiert.</div>'+quiz('z_k1')+quiz('z_k2')+quiz('z_k3')+quiz('z_k4')+
+ '<div class="task"><b>Erkläre</b> mit dem Ergebnis: Wo nimmt der Keimling den Lichtreiz auf?</div>'+txt('t_keim',100,'Nur die Keimlinge, deren Spitze Licht abbekommt (c und d), krümmen sich zum Licht. Ist die Spitze abgedeckt oder abgeschnitten (a und b), wächst der Keimling gerade. Der Lichtreiz wird also in der Spitze aufgenommen, dort wird auch das Auxin gebildet.');},g:function(){return true;}},
+{n:'Zusatz: Schwerkraft',ch:3,m:15,h:function(){return '<h2>Oben und unten: die Schwerkraft</h2><div class="info">Legt man eine junge Pflanze waagerecht hin, verändert sie nach einigen Tagen ihre Wachstumsrichtung. Diese Reaktion auf die Schwerkraft heißt <b>Gravitropismus</b>.</div>'+quiz('z_sk1')+
+ '<div class="task"><b>Plane einen Versuch:</b> Du willst herausfinden, ob sich ein liegender Spross wegen des <b>Lichts</b> oder wegen der <b>Schwerkraft</b> nach oben krümmt. Beschreibe Versuchsaufbau, Kontrolle und das Ergebnis, das du erwartest.</div>'+txt('t_sk',150,'Ich lege zwei gleiche Pflanzen waagerecht hin. Pflanze 1 steht im Licht von oben, Pflanze 2 steht in einem völlig dunklen Karton. Sonst ist alles gleich (gleiche Erde, gleich viel Wasser, gleiche Temperatur). Krümmt sich auch der Spross im Dunkeln nach oben, dann ist die Schwerkraft der Reiz und nicht das Licht. Zur Kontrolle stelle ich eine dritte Pflanze ganz normal aufrecht in den dunklen Karton.');},g:function(){return true;}},
+{n:'Zusatz: Schnelle Pflanzen',ch:3,m:10,h:function(){return '<h2>Blitzschnelle Pflanzen ⚡</h2><div class="info">Die <b>Mimose</b> faltet ihre Fiederblätter bei Berührung in nur 0,08 Sekunden zusammen und senkt den Blattstiel. Danach sieht sie welk aus. Nach etwa einer Viertelstunde richtet sie sich wieder auf.</div>'+quiz('z_mim')+quiz('z_mim2')+
+ '<div class="task"><b>Krokus:</b> Morgens wachsen beim Krokus nur die Zellen an der Innenseite der Blütenblätter, abends nur die an der Außenseite. Beschreibe, wie sich die Blüte morgens und abends bewegt, und begründe, warum diese Bewegung langsamer ist als die der Mimose.</div>'+txt('t_kro',120,'Morgens werden die Zellen innen länger, dadurch biegen sich die Blütenblätter nach außen und die Blüte öffnet sich. Abends wachsen die Zellen außen, die Blütenblätter biegen sich nach innen und die Blüte schließt sich. Das ist langsamer als bei der Mimose, weil es durch Wachstum der Zellen passiert, und Wachstum braucht Zeit.');},g:function(){return true;}},
+{n:'Zusatz: Gänseblümchen',ch:3,m:10,h:function(){return '<h2>Reagieren Gänseblümchen auf Wärme? 🌼</h2><div class="info">Zwei Reagenzgläser mit Gänseblümchen stehen in Bechergläsern. Glas 1 steht in kaltem Wasser, Glas 2 in Wasser mit 30 °C. Nach 30 Minuten werden die Blüten verglichen. Dann werden die Blütenköpfe getauscht und nach weiteren 30 Minuten erneut verglichen.</div>'+quiz('z_gb')+
+ '<div class="task"><b>Begründe:</b> Warum werden die Blüten am Ende getauscht? Was würdest du nach dem Tausch erwarten, wenn deine Hypothese stimmt?</div>'+txt('t_gb',100,'Durch den Tausch prüft man, ob es wirklich an der Temperatur liegt und nicht an den einzelnen Blüten. Stimmt die Hypothese, öffnen sich die Blüten, die vorher im Kalten waren, jetzt im Warmen. Die vorher offenen Blüten schließen sich im Kalten.');},g:function(){return true;}},
+{n:'Zusatz: Mensch und Pflanze',ch:3,m:10,h:function(){return '<h2>Reiz-Reaktions-Kette: Mensch und Pflanze</h2><div class="info"><b>Beim Menschen:</b> Reiz → Aufnahme im Sinnesorgan → Weiterleitung über Nerven → Verarbeitung in Gehirn und Rückenmark → Weiterleitung über Nerven → Reaktion im Muskel (Bewegung).<br><br><b>Beim Fototropismus:</b> Licht → Aufnahme in spezialisierten Zellen der Sprossspitze → Weiterleitung durch Auxin → Streckung der Zellen auf der Schattenseite (Krümmung).</div>'+quiz('z_rk')+
+ '<div class="task"><b>Stelle beide Ketten im Heft als Tabelle nebeneinander</b> (Spalten: Schritt, Mensch, Pflanze) und schreibe darunter in zwei Sätzen, warum die Reaktion der Pflanze viel langsamer ist.</div>'+check('zrk','Meine Tabelle ist fertig.')+'<div class="info">🎉 Du hast alle Zusatzaufgaben geschafft! Wenn noch Zeit ist: Blättere deine Hefteinträge durch und erkläre deinem Sitznachbarn mit dem Schema aus Hefteintrag 3, wie Wasser und Zucker in der Pflanze wandern.</div>';},g:function(){return true;}}
+];
+var CHN={1:'Kapitel 1: Die Pflanze als Organismus',2:'Kapitel 2: Reizbarkeit von Pflanzen',3:'⭐ Zusatzaufgaben (freiwillig)'};
+var WS=[['Wurzel','verankert die Pflanze und nimmt Wasser mit Mineralsalzen auf'],['Wurzelhaare','feine Härchen an der Wurzel, über die Wasser aufgenommen wird'],['Sprossachse','Stängel oder Stamm; trägt Blätter und Blüten und leitet Stoffe'],['Spross','Sprossachse und Blätter zusammen'],['Leitelemente','„Leitungen“ in der Pflanze, in denen Wasser und Zucker transportiert werden'],['Mineralsalze','im Wasser gelöste Stoffe aus dem Boden, die die Pflanze zum Wachsen braucht'],['Fotosynthese','Im grünen Blatt entsteht mit Licht aus Wasser und Kohlenstoffdioxid Zucker (und Sauerstoff).'],['Verdunstung','Wasser geht an den Blättern als Wasserdampf in die Luft; das erzeugt einen Sog'],['Sprossknolle','verdickter Spross, der Nährstoffe speichert (z. B. Kartoffel)'],['Hypothese','begründete Vermutung, die mit einem Versuch überprüft wird'],['Kontrollansatz','Versuchsteil ohne den untersuchten Faktor; zum Vergleich'],['Reiz','Information aus der Umwelt, z. B. Licht, Wärme, Schwerkraft, Berührung'],['Reizbarkeit','Fähigkeit, Reize aufzunehmen und darauf zu reagieren; Kennzeichen des Lebens'],['Fototropismus','durch Licht ausgelöste Wachstumsbewegung (photos = Licht, tropos = Wendung)'],['Auxin','Botenstoff aus der Sprossspitze; bewirkt, dass sich Zellen strecken'],['Streckungswachstum','Zellen werden länger; mehr Auxin = stärkere Streckung'],['Gravitropismus','durch die Schwerkraft ausgelöste Wachstumsbewegung (Zusatz)']];
+function stepIndexByName(n){for(var i=0;i<STEPS.length;i++)if(STEPS[i].n===n)return i;return 0;}
+function chMin(ch){var m=0;for(var i=0;i<STEPS.length;i++)if(STEPS[i].ch===ch)m+=STEPS[i].m;return m;}
+function renderView(){var st=STEPS[S.cur];var h='<div class="card"><span class="tag'+(st.ch===3?' z':'')+'">'+CHN[st.ch]+' · ca. '+st.m+' Min.</span>'+st.h()+'</div>';
+ document.getElementById('app').innerHTML=h;
+ var pflicht=0;for(var i=0;i<STEPS.length;i++)if(STEPS[i].ch<3)pflicht++;
+ var pct=Math.min(100,Math.round(Math.min(S.max,pflicht-1)/(pflicht-1)*100));document.getElementById('pbar').style.width=pct+'%';
+ document.getElementById('meta').textContent='Schritt '+(S.cur+1)+' von '+STEPS.length+' · '+st.n;
+ updNav();renderOv();}
+function updNav(){var st=STEPS[S.cur];var ok=!!st.g();var nb=document.getElementById('nextBtn');var last=S.cur>=STEPS.length-1;
+ nb.disabled=!ok||last;nb.textContent=last?'Ende':'Weiter ▶';document.getElementById('hint').textContent=ok?'':'Erledige zuerst die Aufgaben auf dieser Seite.';
+ document.querySelector('[data-act="back"]').disabled=S.cur===0;}
+function render(){renderView();save();}
+function renderOv(){var o=document.getElementById('ov');if(UI.ws){var h='<div class="overlay" data-act="close"><div class="card"><h2>📖 Wortspeicher</h2><dl>';for(var i=0;i<WS.length;i++)h+='<dt>'+WS[i][0]+'</dt><dd>'+WS[i][1]+'</dd>';o.innerHTML=h+'</dl><button class="btn" data-act="close">Schließen</button></div></div>';}
+ else if(UI.toc){var t='<div class="overlay" data-act="close"><div class="card"><h2>📋 Übersicht</h2><div class="toc">';var lc=0;for(var j=0;j<STEPS.length;j++){if(STEPS[j].ch!==lc){lc=STEPS[j].ch;t+='<h3 style="margin:10px 0 4px">'+CHN[lc]+' (ca. '+chMin(lc)+' Min.)</h3>';}
+  t+=j<=S.max?'<a data-goto="'+j+'">'+(j===S.cur?'▶ ':'')+STEPS[j].n+'</a>':'<span>🔒 '+STEPS[j].n+'</span>';}
+  o.innerHTML=t+'</div><button class="btn" data-act="close">Schließen</button> <button class="btn sec" data-act="reset">🔄 Neu starten</button></div></div>';}
+ else o.innerHTML='';}
+document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.dataset&&(t.dataset.q||t.dataset.act||t.dataset.amp||t.dataset.gcheck||t.dataset.gsolve||t.dataset.sim||t.dataset.sp||t.dataset.lr||t.dataset.sample||t.dataset.jump||t.dataset.goto)))t=t.parentNode;
+ if(!t||t===document||!t.dataset)return;var d=t.dataset;
+ if(d.act){if(d.act==='close'&&t!==e.target&&t.classList.contains('overlay'))return;
+  if(d.act==='next'){if(STEPS[S.cur].g()&&S.cur<STEPS.length-1){S.cur++;if(S.cur>S.max)S.max=S.cur;render();window.scrollTo(0,0);}return;}
+  if(d.act==='back'){if(S.cur>0){S.cur--;render();window.scrollTo(0,0);}return;}
+  if(d.act==='ws'){UI.ws=1;UI.toc=0;renderOv();return;}if(d.act==='toc'){UI.toc=1;UI.ws=0;renderOv();return;}
+  if(d.act==='close'){UI.ws=0;UI.toc=0;renderOv();return;}
+  if(d.act==='reset'){if(confirm('Wirklich alles löschen und von vorne beginnen?')){try{localStorage.removeItem(KEY);}catch(x){}S=fresh();UI.toc=0;render();window.scrollTo(0,0);}return;}}
+ if(d.goto!==undefined){S.cur=parseInt(d.goto,10);UI.toc=0;render();window.scrollTo(0,0);return;}
+ if(d.q){if(S.ans[d.q]===undefined){S.ans[d.q]=parseInt(d.i,10);render();}return;}
+ if(d.amp){S.amp[d.amp]=d.v;render();return;}
+ if(d.gcheck){gameCheck(d.gcheck);render();return;}
+ if(d.gsolve){gameSolve(d.gsolve);render();return;}
+ if(d.sim){var s=S.sim;if(d.sim==='run'){s.run=1;var off=(s.l?0:1)+(s.h?0:1)+(s.s?0:1);if(off===1){if(!s.l)s.tried.l=1;if(!s.h)s.tried.h=1;if(!s.s)s.tried.s=1;}}else{s[d.sim]=s[d.sim]?0:1;s.run=0;}render();return;}
+ if(d.sp){var p=S.sp;if(d.sp==='grow'){p.grown=1;p.seen[p.light]=1;}else if(d.sp==='reset'){p.grown=0;}else{p.light=d.sp;p.grown=0;}render();return;}
+ if(d.lr){if(S.lr===null||S.lr===undefined){S.lr=Math.floor(Math.random()*LR.length);}render();return;}
+ if(d.sample){S.vert['s_'+d.sample]=1;render();return;}
+ if(d.jump){S.cur=stepIndexByName(NACHLESEN[d.jump]);render();window.scrollTo(0,0);return;}
+});
+document.addEventListener('change',function(e){var t=e.target;if(!t.dataset)return;
+ if(t.dataset.ck){S.ck[t.dataset.ck]=t.checked?1:0;render();return;}
+ if(t.dataset.g){var id=t.dataset.g;var st=S.game[id]||{v:{},tries:0,ok:0};st.v[t.dataset.k]=t.value;S.game[id]=st;if(id==='g_aux'){render();}else{save();}return;}});
+document.addEventListener('input',function(e){var t=e.target;if(!t.dataset||!t.dataset.tr)return;var id=t.dataset.tr,min=parseInt(t.dataset.min,10);S.tr[id]=t.value;
+ var c=document.getElementById('cnt_'+id);if(c)c.textContent=t.value.length+' von mindestens '+min+' Zeichen';
+ var sm=document.getElementById('smp_'+id);if(sm){var has=sm.innerHTML!=='';if(t.value.length>=min&&!has)sm.innerHTML=sampleHtml(id,SAMPLES[id]);if(t.value.length<min&&has&&!S.vert['s_'+id])sm.innerHTML='';}
+ updNav();saveSoon();});
+load();render();
+</script></body></html>
